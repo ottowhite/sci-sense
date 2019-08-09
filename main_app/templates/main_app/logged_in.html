@@ -1,0 +1,14 @@
+{% extends "main_app/base.html" %}
+
+{% block body %}
+
+    <img src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png" id="logo-image">
+    <div class="box" id="nav-bar">
+        {% block navigation %} {% endblock navigation %}
+    </div>
+    
+    <div class="box" id="content">
+        {% block content %} {% endblock content %}
+    </div>
+
+{% endblock body %}
