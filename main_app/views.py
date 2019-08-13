@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import AppUser
 
-user_data = AppUser.objects.get(username="britannioj")
+user_data = AppUser.objects.get(username="ottowhite")
 
 
 # Create your views here.
