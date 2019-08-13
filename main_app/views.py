@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
+from .models import AppUser
 
 user_data = {
     'username': 'robster',
@@ -9,23 +9,15 @@ user_data = {
 
 
 # Create your views here.
-def student_home(request):
+def home(request):
     context = {
-        'user_data': User.objects.get(username="ottowhite"),
-        'title': 'Student home'
+        'user_data': AppUser.objects.get(username="ottowhite"),
+        'title': 'Home'
     }
 
-    return render(request, 'main_app/student_home.html', context)
+    return render(request, 'main_app/home.html', context)
 
-def teacher_home(request):
-    context = {
-        'user_data': User.objects.get(username="ottowhite"),
-        'title': 'Teacher home'
-    }
-
-    return render(request, 'main_app/teacher_home.html', context)
-
-def student_quiz(request):
+def quiz(request):
     question_data = {
         'spec_point': '3.12',
         'question': 'What is the base unit of mass?',
@@ -37,9 +29,9 @@ def student_quiz(request):
     }
     
     context = {
-        'user_data': User.objects.first(),
+        'user_data': AppUser.objects.get(username="ottowhite"),
         'question_data': question_data,
         'title': 'Do quiz'
     }
 
-    return render(request, 'main_app/student_quiz.html', context)
+    return render(request, 'main_app/quiz.html', context)

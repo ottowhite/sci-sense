@@ -7,7 +7,25 @@
         <img src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png" id="logo-image">
         
         <div class="nav-box" id="nav-bar">
-            {% block navigation %} {% endblock navigation %}
+            {% if user_data.is_teacher %}
+                <ul id="menu-list">
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Home</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Do quizzes</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Terms and definitions</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Class progress</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Manage</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
+                </ul>
+            {% else %}
+                <ul id="menu-list">
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Home</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Do quizzes</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Assignments</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Terms and definitions</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">View specification</a></li>
+                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
+                </ul>
+            {% endif %}
         </div>
         
     </div>
