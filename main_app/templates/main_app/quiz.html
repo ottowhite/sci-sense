@@ -1,4 +1,4 @@
-{% extends "main_app/student.html" %}
+{% extends "main_app/logged_in.html" %}
 
 {% block content %}
     <style>
@@ -55,19 +55,24 @@
 
         /* Question number CSS */
         #question-numbers-wrapper {
-            grid-column: 1/3;
+            grid-column: 1/5;
+            align-self: end;
         }
 
         .question-number {
             display: grid;
             
             float: left;
-            height: 70px;
-            width: 70px;
+            height: 40px;
+            width: 40px;
             margin: 0.7em;
             border-radius: 100px;
             background-color: var(--accent-colour);
             color: var(--primary-text)
+        }
+
+        .question-number:hover, .question-box:hover {
+            background-color: var(--primary-hover);
         }
 
         .question-nav-span {

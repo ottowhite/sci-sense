@@ -1,17 +1,13 @@
 from django.shortcuts import render
 from .models import AppUser
 
-user_data = {
-    'username': 'robster',
-    'forename': 'Robbie',
-    'surname': 'McCabe'
-}
+user_data = AppUser.objects.get(username="britannioj")
 
 
 # Create your views here.
 def home(request):
     context = {
-        'user_data': AppUser.objects.get(username="ottowhite"),
+        'user_data': user_data,
         'title': 'Home'
     }
 
@@ -29,7 +25,7 @@ def quiz(request):
     }
     
     context = {
-        'user_data': AppUser.objects.get(username="ottowhite"),
+        'user_data': user_data,
         'question_data': question_data,
         'title': 'Do quiz'
     }
