@@ -3,6 +3,7 @@
 <html>
     <head>
         
+        
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
@@ -10,11 +11,95 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-        <!-- base CSS -->
-        <link rel="stylesheet" type="text/css" href="{% static 'main_app/base.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'main_app/logged_in.css' %}">
         
+        <style>
+            :root {
+                --primary-bg: #0097A7;
+                --primary-content: #00BCD4;
+                --primary-text: #212121;
+                
+                --secondary-text: #757575;
+                --accent-colour: #009688;
+            }
+            
+            * {
+                outline: 1px black solid;
+            }
+
+            body {
+                background-color: var(--primary-bg);
+            }
+
+
+            /* navbar CSS */
+            .nav-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 9fr;
+                grid-gap: 0.7em;
+
+                
+                padding-top: 0.7em;
+                margin-right: 3em;
+                margin-left: 3em;
+            }
+
+            .nav-box {
+                border-radius: 10px;
+                background-color: grey;
+                justify-self: end;
+
+                background-color: var(--primary-content);
+            }
+
+            #logo-image {
+                height: 65px;
+                justify-self: start;
+            }
+
+            #menu-list {
+                list-style-type: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .menu-list-item {
+                float: left;
+                padding: 10px;
+                margin: 10px;
+            }
+
+            .menu-list-item-link {
+                text-decoration: none;
+                color: var(--primary-text);
+            }
+
+            .menu-list-item-link:hover {
+                text-decoration: none;
+                color: var(--secondary-text);
+            }
+
+            /* Content CSS */
+            .content-wrapper {
+                margin-right: 3em;
+                margin-left: 3em;
+                margin-top: 0.7em;
+            }
+
+            .box {
+                background-color: grey;
+                border-radius: 10px;
+                padding: 1.4em;
+                color: var(--primary-text);
+                background-color: var(--primary-content);
+            }
+
+            #content {
+                height: 85%;
+            }
+
+            
+        </style>
+
         {% if title %}
             <title>Sci.Sense - {{ title }}</title>
         {% endif %}

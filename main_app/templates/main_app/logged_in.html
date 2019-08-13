@@ -2,13 +2,21 @@
 
 {% block body %}
 
-    <img src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png" id="logo-image">
-    <div class="box" id="nav-bar">
-        {% block navigation %} {% endblock navigation %}
+    <div class="nav-wrapper">
+
+        <img src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png" id="logo-image">
+        
+        <div class="nav-box" id="nav-bar">
+            {% block navigation %} {% endblock navigation %}
+        </div>
+        
     </div>
     
-    <div class="box" id="content">
-        {% block content %} {% endblock content %}
+    <div class="content-wrapper">
+        <div class="box" id="content">
+                {% block content %} {% endblock content %}
+        </div>
     </div>
+    
 
 {% endblock body %}
