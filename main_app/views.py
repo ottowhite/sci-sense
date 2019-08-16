@@ -23,7 +23,7 @@ def quiz(request):
     
     context = {
         'user_data': user_data,
-        'question_data': Question.objects.filter(spec_point__range=(1.09, 2.1))[:5],
+        'question_data': Question.objects.filter(spec_point__range=(1.01, 2.1))[:15],
         'title': 'Do quiz'
     }
 

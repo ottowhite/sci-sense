@@ -91,17 +91,27 @@
 {% block scripts %}
     {{ block.super }}
     <script id="quiz-js">
-        function show_question(question_number) {
+        function select_question(question_number) {
             // ensure that all question related elements are hidden before displaying another
             // have to use querySelectorAll to select multiple classes
-            question_elements = document.querySelectorAll(".question-header,.question-paragraph,.question-box")
+            question_elements = document.querySelectorAll(".question-header,.question-paragraph,.question-box");
             
             // set all display modes to none
             for (i = 0; i < question_elements.length; i++) {
                 question_elements[i].style.display = "none";
             }
 
-            // collect all elements relating to a single question
+            // get global CSS variables for relevant colours
+            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
+            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
+
+            question_numbers = document.getElementsByClassName("question-number")
+            for (i = 0; i < question_numbers.length; i++) {
+                // set all question number divs to have default colour
+                question_numbers[i].style.backgroundColor = default_colour;
+            }
+
+            // collect all elements relating to a single question, and display them with according properties
             single_question_elements = document.getElementsByClassName("q" + question_number)
             for (i = 0; i < single_question_elements.length; i++) {
                 if (single_question_elements[i].constructor.name == "HTMLDivElement") {
@@ -110,16 +120,20 @@
                     single_question_elements[i].style.display = "block";
                 }
             }
+            
+            // darken the selected question
+            document.getElementById("q" + question_number + "-nav").style.backgroundColor = hover_colour;
+        
         }
 
-        show_question(1);
+        select_question(1);
     </script>
 {% endblock %}
 
 {% block content %}
     <div id="context">
         {% for question in question_data %}
-            <h1 class="question-header q{{ forloop.counter }}">{{ question.spec_point }} - Q{{ forloop.counter }}</h1>
+            <h1 class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} (Spec: {{ question.spec_point }})</h1>
             <p class="question-paragraph q{{ forloop.counter }}">
                 {{ question.question }}
             </p>
@@ -136,7 +150,7 @@
 
     <div id="question-numbers-wrapper">
         {% for question in question_data %}
-            <div class="question-number" id="q{{ forloop.counter }}-nav" onclick="show_question({{ forloop.counter }})"><span class="question-nav-span">{{ forloop.counter }}</span></div>
+            <div class="question-number" id="q{{ forloop.counter }}-nav" onclick="select_question({{ forloop.counter }})"><span class="question-nav-span">{{ forloop.counter }}</span></div>
         {% endfor %}
     </div>
 
