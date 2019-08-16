@@ -1,7 +1,7 @@
 from django.db import models
 
-# Create your models here.
 class Question(models.Model):
+    # defining the multiple-choice question table with the django ORM
     spec_point = models.FloatField()
     
     question = models.TextField()
@@ -13,11 +13,14 @@ class Question(models.Model):
 
 class AppUser(models.Model):
     username = models.CharField(max_length=15)
-    password = models.CharField(max_length=25)
+    password = models.CharField(max_length=25) # this field is temporary; will be replace with hashed password field
     forename = models.CharField(max_length=20)
     surname = models.CharField(max_length=20)
     email = models.CharField(max_length=64)
     is_teacher = models.BooleanField()
 
     def __str__(self):
+        # simply a to_string method to define the description of an object when it is
+        # queried in the django shell
+
         return f"{self.forename} {self.surname} ({self.username})"

@@ -1,38 +1,120 @@
+<!-- Allows the page to override blocks defined in the base page -->
 {% extends "main_app/base.html" %}
+
+<!-- Appending a style to the head of the document through calling super inside the block override -->
+{% block stylesheets %}
+    {{ block.super }}
+    <style id="logged-in-css">
+        /* This CSS is only necessary once a user has logged in
+        as it is responsible for styling the navigation bar and
+        empty content block */
+
+        /* navbar CSS */
+        #top-bar-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 9fr;
+            grid-gap: 0.7em;
+
+            
+            padding-top: 0.7em;
+            margin-right: 3em;
+            margin-left: 3em;
+        }
+
+        #nav-box {
+            border-radius: 100px;
+            background-color: grey;
+            justify-self: end;
+
+            background-color: var(--primary-content);
+        }
+
+        #logo-image {
+            height: 65px;
+            justify-self: start;
+        }
+
+        #menu-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-list-item {
+            float: left;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .menu-list-item-link {
+            text-decoration: none;
+            color: var(--primary-text);
+        }
+
+        .menu-list-item-link:hover {
+            text-decoration: none;
+            color: var(--secondary-text);
+        }
+
+        /* Content CSS */
+        .content-wrapper {
+            margin-right: 3em;
+            margin-left: 3em;
+            margin-top: 0.7em;
+        }
+
+        .box {
+            border-radius: 50px;
+            padding: 1.4em;
+            color: var(--primary-text);
+            background-color: var(--primary-content);
+        }
+
+        #content {
+            height: 85%;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
 
-    <div class="nav-wrapper">
+    <!-- Wrapper for all navigation/top-bar related elements for all  -->
+    <div id="top-bar-wrapper">
 
-        <img src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png" id="logo-image">
+        <!-- Logo image displayed to the left of navigation bar -->
+        <img id="logo-image" src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png">
         
-        <div class="nav-box" id="nav-bar">
+        <!-- The box containing all menu elements -->
+        <div id="nav-box">
+
+            <!-- The nav bar displays different elements depending on the status (student/teacher) of the user -->
             {% if user_data.is_teacher %}
                 <ul id="menu-list">
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Home</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Do quizzes</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Terms and definitions</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Class progress</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Manage</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Home</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Do quizzes</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a> </li>
                 </ul>
             {% else %}
                 <ul id="menu-list">
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Home</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Do quizzes</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Assignments</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">Terms and definitions</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">View specification</a></li>
-                    <li class="menu-list-item"><a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Home</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Do quizzes</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>
+                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
                 </ul>
             {% endif %}
         </div>
-        
     </div>
     
     <div class="content-wrapper">
         <div class="box" id="content">
-                {% block content %} {% endblock content %}
+            {% block content %} 
+                <!-- This block is overwritten by the actual page contents -->
+            {% endblock content %}
         </div>
     </div>
     

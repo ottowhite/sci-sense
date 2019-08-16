@@ -1,9 +1,7 @@
-{% load static %}
-
 <html>
+
     <head>
-        
-        
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         
@@ -12,100 +10,54 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         
-        <style>
-            :root {
-                --primary-bg: #B2DFDB;
-                --primary-content: #00BCD4;
-                --primary-text: #212121;
-                --primary-hover: #009688;
+        <!-- CSS stylesheets from child templates are appended into this block -->
+        {% block stylesheets %}
+            <style id="base-css">
+
+                /* defining universal color variables for
+                easily changable app colour schemes */
+                :root {
+                    --primary-bg: #B2DFDB;
+                    --primary-content: #00BCD4;
+                    --primary-text: #212121;
+                    --primary-hover: #009688;
+                    
+                    --secondary-text: #757575;
+                    --accent-colour: #0097A7;
+                }
                 
-                --secondary-text: #757575;
-                --accent-colour: #0097A7;
-            }
-            
-            * {
-                outline: 0px black solid;
-            }
+                /* used for making all element boundaries visible
+                in order to improve website formatting and maintainability */
+                * {
+                    outline: 0px black solid;
+                }
 
-            body {
-                background-color: var(--primary-bg);
-            }
+                body {
+                    background-color: var(--primary-bg);
+                }
+            </style>
+        {% endblock %}
 
-
-            /* navbar CSS */
-            .nav-wrapper {
-                display: grid;
-                grid-template-columns: 1fr 9fr;
-                grid-gap: 0.7em;
-
-                
-                padding-top: 0.7em;
-                margin-right: 3em;
-                margin-left: 3em;
-            }
-
-            .nav-box {
-                border-radius: 100px;
-                background-color: grey;
-                justify-self: end;
-
-                background-color: var(--primary-content);
-            }
-
-            #logo-image {
-                height: 65px;
-                justify-self: start;
-            }
-
-            #menu-list {
-                list-style-type: none;
-                padding: 0;
-                margin: 0;
-            }
-
-            .menu-list-item {
-                float: left;
-                padding: 10px;
-                margin: 10px;
-            }
-
-            .menu-list-item-link {
-                text-decoration: none;
-                color: var(--primary-text);
-            }
-
-            .menu-list-item-link:hover {
-                text-decoration: none;
-                color: var(--secondary-text);
-            }
-
-            /* Content CSS */
-            .content-wrapper {
-                margin-right: 3em;
-                margin-left: 3em;
-                margin-top: 0.7em;
-            }
-
-            .box {
-                border-radius: 50px;
-                padding: 1.4em;
-                color: var(--primary-text);
-                background-color: var(--primary-content);
-            }
-
-            #content {
-                height: 85%;
-            }
-
-            
-        </style>
-
+        <!-- The title adapts to passed context with the constant prefix of "Sci.Sense - {page_name}" -->
+        <!-- Otherwise a blank title of "Sci.Sense is used" -->
         {% if title %}
             <title>Sci.Sense - {{ title }}</title>
+        {% else %}
+            <title>Sci.Sense</title>
         {% endif %}
             
     </head>
+
     <body>
-        {% block body %} {% endblock body %}
+        {% block body %}
+            <!-- This block is replaced by the actual body -->
+        {% endblock body %}
+
+        <!-- JS scripts from child templates are appended into this block -->
+        <!-- Must run here to ensure content has loaded -->
+        {% block scripts %}
+        
+        {% endblock %}
     </body>
+
 </html>

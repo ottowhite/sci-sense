@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from .models import AppUser
+from .models import Question
+from django.db.models import Q, ObjectDoesNotExist
 
-user_data = AppUser.objects.get(username="ottowhite")
+# querying the 
+try:
+    user_data = AppUser.objects.get(Q(username="britannioj") & Q(password="MLG"))
+except ObjectDoesNotExist:
+    user_data = None
 
 
-# Create your views here.
 def home(request):
     context = {
         'user_data': user_data,
@@ -14,19 +19,11 @@ def home(request):
     return render(request, 'main_app/home.html', context)
 
 def quiz(request):
-    question_data = {
-        'spec_point': '3.12',
-        'question': 'What is the base unit of mass?',
-        'a': 'Kilograms',
-        'b': 'Grams',
-        'c': 'Hertz',
-        'd': 'Draws',
-        'answer': 'd'
-    }
+
     
     context = {
         'user_data': user_data,
-        'question_data': question_data,
+        'question_data': Question.objects.filter(spec_point__range=(1.09, 2.1))[:5],
         'title': 'Do quiz'
     }
 

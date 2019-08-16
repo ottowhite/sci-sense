@@ -1,13 +1,15 @@
+<!-- Allows the page to override blocks defined in the logged_in page -->
 {% extends "main_app/logged_in.html" %}
 
+<!-- This block will be overwritten by the unique code of each page -->
 {% block content %}
 
     {% if user_data.is_teacher %}
-
+        <!-- This content is displayed if the user is a teacher -->
         <h1>Welcome to the teacher homepage</h1>
 
     {% else %}
-
+        <!-- This content is displayed if the user is a student -->
         <h1>Welcome to the student homepage</h1>
 
         <p>
