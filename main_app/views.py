@@ -5,7 +5,7 @@ from django.db.models import Q, ObjectDoesNotExist
 
 # querying the 
 try:
-    user_data = AppUser.objects.get(Q(username="britannioj") & Q(password="MLG"))
+    user_data = AppUser.objects.get(Q(username="ottowhite") & Q(password="password"))
 except ObjectDoesNotExist:
     user_data = None
 
@@ -23,7 +23,7 @@ def quiz(request):
     
     context = {
         'user_data': user_data,
-        'question_data': Question.objects.filter(spec_point__range=(1.01, 2.1))[:15],
+        'question_data': Question.objects.filter(spec_point__range=(1.1, 1.2)).order_by("?")[:15],
         'title': 'Do quiz'
     }
 
