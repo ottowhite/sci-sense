@@ -155,6 +155,9 @@
 {% block scripts %}
     {{ block.super }}
     <script id="quiz-js">
+        var default_colour;
+        var hover_colour;
+        
         var answers;
         var number_of_quesions;
 
@@ -175,10 +178,6 @@
             for (i = 0; i < question_elements.length; i++) {
                 question_elements[i].style.display = "none";
             }
-
-            // get global CSS variables for relevant colours
-            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
-            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
 
             question_numbers = document.getElementsByClassName("question-number")
             for (i = 0; i < question_numbers.length; i++) {
@@ -202,6 +201,10 @@
         }
 
         function init() {
+            // get global CSS variables for relevant colours
+            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
+            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
+            
             number_of_quesions = {{ question_data.count }};
             
             // creates an answers object where each question has its own attribute
@@ -219,6 +222,35 @@
 
         function select_answer(current_question, answer) {
             answers[current_question]["student_answer"] = answer;
+
+            switch (answer) {
+                case "A":
+                    answer_number = 1;
+                    break;
+                case "B":
+                    answer_number = 2;
+                    break;
+                case "C":
+                    answer_number = 3;
+                    break;
+                case "D":
+                    answer_number = 4;
+                    break;
+            }
+
+            answer_query_string = "q" + current_question + " question-box"
+
+            boxes = document.getElementsByClassName(answer_query_string);
+
+            for (var i = 1; i <= boxes.length; i++) {
+                if (i == answer_number) {
+                    boxes[i-1].style.backgroundColor = hover_colour;
+                } else {
+                    boxes[i-1].style.backgroundColor = default_colour;
+                }
+            }
+
+            
         }
 
         function check_answers() {
@@ -236,8 +268,9 @@
             alert("You got " + percentage_correct + "% correct");
         }
 
-        select_question(1); // always select the first question when the quiz starts
         init()
+
+        select_question(1); // always select the first question when the quiz starts
     </script>
 {% endblock %}
 
