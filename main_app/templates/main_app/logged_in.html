@@ -22,7 +22,7 @@
         }
 
         #nav-box {
-            border-radius: 100px;
+            border-radius: 20px;
             background-color: grey;
             justify-self: end;
 
@@ -64,7 +64,7 @@
         }
 
         .box {
-            border-radius: 50px;
+            border-radius: 60px;
             padding: 1.4em;
             color: var(--primary-text);
             background-color: var(--primary-content);
@@ -90,8 +90,8 @@
             <!-- The nav bar displays different elements depending on the status (student/teacher) of the user -->
             {% if user_data.is_teacher %}
                 <ul id="menu-list">
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Home</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Do quizzes</a> </li>
+                    <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
+                    <li class="menu-list-item"> <a href="{% url 'main-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
@@ -99,8 +99,8 @@
                 </ul>
             {% else %}
                 <ul id="menu-list">
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Home</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Do quizzes</a> </li>
+                    <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
+                    <li class="menu-list-item"> <a href="{% url 'main-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
                     <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>

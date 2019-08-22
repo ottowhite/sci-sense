@@ -1,0 +1,27 @@
+<!-- Allows the page to override blocks defined in the logged_in page -->
+{% extends "main_app/logged_in.html" %}
+
+{% block stylesheets %}
+    {{ block.super }}
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    
+{% endblock %}
+
+{% block content %}
+    <h1>Generate quiz</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Renders the form with paragraph tags -->
+        {{ form.as_p }}
+
+        <button type="submit">Generate quiz!</button>
+    </form>
+
+    {{ values }}
+
+{% endblock content %}
