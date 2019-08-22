@@ -1,23 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import AppUser
 from .models import Question
 from main_app.forms import GenerateQuizForm
 from django.db.models import Q, ObjectDoesNotExist
+from urllib.parse import urlencode
+from django.urls import reverse
 
-# querying the 
+# querying the user model
 try:
     user_data = AppUser.objects.get(Q(username="britannioj") & Q(password="MLG"))
 except ObjectDoesNotExist:
     user_data = None
 
-
-def home(request):
-    context = {
-        'user_data': user_data,
-        'title': 'Home'
-    }
-    return render(request, 'main_app/home.html', context)
 
 class HomeView(TemplateView):
     template_name = 'main_app/home.html'
@@ -27,18 +22,6 @@ class HomeView(TemplateView):
         args = {
             'user_data': user_data,
             'title': 'Home'
-        }
-
-        return render(request, self.template_name, args)
-
-class QuizView(TemplateView):
-    template_name = 'main_app/quiz.html'
-
-    def get(self, request):
-        args = {
-            'user_data': user_data,
-            'question_data': Question.objects.filter(spec_point__range=(1.2, 1.3)).order_by("?")[:3],
-            'title': 'Do quiz'
         }
 
         return render(request, self.template_name, args)
@@ -76,11 +59,29 @@ class GenerateQuizView(TemplateView):
         }
 
         if form.is_valid():
-            starting_specification_point = form.cleaned_data['starting_specification_point']
-            ending_specification_point = form.cleaned_data['ending_specification_point']
-            maximum_questions = form.cleaned_data['maximum_questions']
-        
-        args['values'] = starting_specification_point + ending_specification_point + maximum_questions
+            base_url = reverse('main-quiz')
+            query_string = urlencode({
+                'starting_specification_point': form.cleaned_data['starting_specification_point'],
+                'ending_specification_point': form.cleaned_data['ending_specification_point'],
+                'maximum_questions': form.cleaned_data['maximum_questions']
+            })
 
-        # render the page with the according context
+            return redirect(f'{base_url}?{query_string}')
+
+        return render(request, self.template_name, args)
+
+class QuizView(TemplateView):
+    template_name = 'main_app/quiz.html'
+
+    def get(self, request):
+        starting_specification_point = float(request.GET.get('starting_specification_point'))
+        ending_specification_point = float(request.GET.get('ending_specification_point')) - 0.001
+        maximum_questions = int(request.GET.get('maximum_questions'))
+
+        args = {
+            'user_data': user_data,
+            'question_data': Question.objects.filter(spec_point__range=(starting_specification_point, ending_specification_point)).order_by("?")[:maximum_questions],
+            'title': 'Do quiz'
+        }
+
         return render(request, self.template_name, args)
