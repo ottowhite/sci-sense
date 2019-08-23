@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
+from main_app.views import GenerateQuizView, QuizView, HomeView
 
 urlpatterns = [
-    path('student_home', views.student_home, name="main-student-home"),
-    path('teacher_home', views.teacher_home, name="main-teacher-home"),
+    path('home', HomeView.as_view(), name="main-home"),
+    path('quiz', QuizView.as_view(), name="main-quiz"),
+    path('generate_quiz', GenerateQuizView.as_view(), name="main-generate-quiz"),
 ]

@@ -1,0 +1,313 @@
+<!-- Allows the page to override blocks defined in the logged_in page -->
+{% extends "main_app/logged_in.html" %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <style id="quiz-css">
+        /* Question context CSS */
+        #content {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        #context {
+            grid-column: 1/5;
+        }
+
+        #context > p {
+            text-align: center;
+        }
+
+        /* Question boxes CSS */
+        .question-box {
+            display: grid;
+            margin: 0.7em;
+            text-align: center;
+
+            background-color: var(--accent-colour);
+            border-radius: 10px;
+        }
+
+        .a1-box {
+            grid-column: 1/3;
+            grid-row: 2/3;
+        }
+
+        .a2-box {
+            grid-column: 3/5;
+            grid-row: 2/3;
+        }
+
+        .a3-box {
+            grid-column: 1/3;
+            grid-row: 3/4;
+        }
+
+        .a4-box {
+            grid-column: 3/5;
+            grid-row: 3/4;
+        }
+
+        .question-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        /* Question number CSS */
+        #question-numbers-wrapper {
+            grid-column: 1/5;
+            align-self: end;
+        }
+
+        .question-number {
+            display: grid;
+            
+            float: left;
+            height: 40px;
+            width: 40px;
+            margin: 0.7em;
+            border-radius: 100px;
+            background-color: var(--accent-colour);
+            color: var(--primary-text)
+        }
+
+        .question-number:hover, .question-box:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .question-nav-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        .question-header, .question-paragraph, .question-box {
+            display: none;
+        }
+        
+        
+        /* styling the next and previous button */
+        #previous-button {
+            display: grid;
+            
+            background-color: var(--accent-colour);
+            float: left;
+            height: 40px;
+            width: 40px;
+            margin: 0.7em;
+            margin-right: 0.1em;
+            border-radius: 100px;
+
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        #next-button {
+            display: grid;
+            
+            background-color: var(--accent-colour);
+            float: left;
+            height: 40px;
+            width: 40px;
+            margin: 0.7em;
+            margin-left: 0.1em;
+            border-radius: 100px;
+
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        #next-span, #previous-span {
+            color: var(--primary-text);
+            justify-self: center;
+            align-self: center;
+        }
+
+        #next-button:hover, #previous-button:hover {
+            background-color: var(--primary-hover);
+        }
+        /* Styling the finished button */
+        #finished-button {
+            display: grid;
+            
+            background-color: var(--accent-colour);
+            float: right;
+            height: 40px;
+            width: 70px;
+            margin: 0.7em;
+            border-radius: 100px;
+        }
+
+        #finished-span {
+            color: var(--primary-text);
+            justify-self: center;
+            align-self: center;
+        }
+
+        #finished-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script id="quiz-js">
+        var default_colour;
+        var hover_colour;
+        
+        var answers;
+        var number_of_quesions;
+
+        function select_question(question_number) {
+            if (question_number >= number_of_quesions) {
+                current_question = number_of_quesions;
+            } else if (question_number <= 1) {
+                current_question = 1;
+            } else {
+                current_question = question_number;
+            }
+            
+            // ensure that all question related elements are hidden before displaying another
+            // have to use querySelectorAll to select multiple classes
+            question_elements = document.querySelectorAll(".question-header,.question-paragraph,.question-box");
+            
+            // set all display modes to none
+            for (i = 0; i < question_elements.length; i++) {
+                question_elements[i].style.display = "none";
+            }
+
+            question_numbers = document.getElementsByClassName("question-number")
+            for (i = 0; i < question_numbers.length; i++) {
+                // set all question number divs to have default colour
+                question_numbers[i].style.backgroundColor = default_colour;
+            }
+
+            // collect all elements relating to a single question, and display them with according properties
+            single_question_elements = document.getElementsByClassName("q" + current_question)
+            for (i = 0; i < single_question_elements.length; i++) {
+                if (single_question_elements[i].constructor.name == "HTMLDivElement") {
+                    single_question_elements[i].style.display = "grid";
+                } else {
+                    single_question_elements[i].style.display = "block";
+                }
+            }
+            
+            // darken the selected question
+            document.getElementById("q" + current_question + "-nav").style.backgroundColor = hover_colour;
+        
+        }
+
+        function init() {
+            // get global CSS variables for relevant colours
+            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
+            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
+            
+            number_of_quesions = {{ question_data.count }};
+            
+            // creates an answers object where each question has its own attribute
+            // each question attribute is another object of the information for each question
+            answers = {
+                {% for question in question_data %}
+                    {{ forloop.counter }}: {
+                        "id": {{ question.id }}, 
+                        "answer": "{{ question.answer }}",
+                        "student_answer": null
+                    },
+                {% endfor %}
+            };
+        }
+
+        function select_answer(current_question, answer) {
+            answers[current_question]["student_answer"] = answer;
+
+            switch (answer) {
+                case "A":
+                    answer_number = 1;
+                    break;
+                case "B":
+                    answer_number = 2;
+                    break;
+                case "C":
+                    answer_number = 3;
+                    break;
+                case "D":
+                    answer_number = 4;
+                    break;
+            }
+
+            answer_query_string = "q" + current_question + " question-box"
+
+            boxes = document.getElementsByClassName(answer_query_string);
+
+            for (var i = 1; i <= boxes.length; i++) {
+                if (i == answer_number) {
+                    boxes[i-1].style.backgroundColor = hover_colour;
+                } else {
+                    boxes[i-1].style.backgroundColor = default_colour;
+                }
+            }
+
+            
+        }
+
+        function check_answers() {
+            total_correct = 0;
+            
+            // iteratively create a total of the number of questions that were answered correctly
+            for (var i = 1; i <= number_of_quesions; i++) {
+                if (answers[i]["student_answer"] == answers[i]["answer"]) {
+                    total_correct++;
+                }
+            }
+
+            percentage_correct = (total_correct / number_of_quesions) * 100
+
+            alert("You got " + percentage_correct + "% correct");
+        }
+
+        init()
+
+        select_question(1); // always select the first question when the quiz starts
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="context">
+        <!-- The question queryset is iterated over, creating all question context elements -->
+        {% for question in question_data %}
+            <h1 class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} (Spec: {{ question.spec_point }})</h1>
+            <p class="question-paragraph q{{ forloop.counter }}">
+                {{ question.question }}
+            </p>
+        {% endfor %}
+    </div>
+
+    <!-- The question queryset is iterated over, creating all divs and elements for all questions -->
+    {% for question in question_data %}
+        <div class="question-box a1-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
+        <div class="question-box a2-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
+        <div class="question-box a3-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
+        <div class="question-box a4-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
+    {% endfor %}
+
+
+    <!-- The question queryset is iterated over, creating question number navigation divs for all questions -->
+    <div id="question-numbers-wrapper">
+        {% for question in question_data %}
+            <div class="question-number" id="q{{ forloop.counter }}-nav" onclick="select_question({{ forloop.counter }})">
+                <span class="question-nav-span">{{ forloop.counter }}</span>
+            </div>
+        {% endfor %}
+
+
+        <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
+        <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>    
+        <div id="finished-button" onclick="check_answers()"><span id="finished-span">Finish</span></div>   
+        
+
+        
+    </div>
+{% endblock content %}
