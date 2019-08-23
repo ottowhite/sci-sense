@@ -87,6 +87,11 @@ class QuizView(TemplateView):
         end = float(request.GET.get('ending_specification_point'))
         maximum = int(request.GET.get('maximum_questions'))
 
+        # swapping the order of the start and end spec position if they 
+        # are in the wrong order
+        (start, end) = (end, start) if start > end else (start, end)
+        maximum = 30 if maximum > 30 else maximum
+
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
             'user_data': user_data,
