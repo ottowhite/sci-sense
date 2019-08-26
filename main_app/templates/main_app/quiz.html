@@ -191,6 +191,16 @@
             background-color: var(--primary-hover);
         }
 
+        /* Diagram CSS */
+        .question-image {
+            display: block;
+            
+            grid-auto-rows: 2/3;
+
+            margin-right: auto;
+            margin-left: auto;
+        }
+
     </style>
 {% endblock %}
 
@@ -214,7 +224,7 @@
             
             // ensure that all question related elements are hidden before displaying another
             // have to use querySelectorAll to select multiple classes
-            question_elements = document.querySelectorAll(".question-header,.question-paragraph,.question-box");
+            question_elements = document.querySelectorAll(".question-header,.question-paragraph,.question-box,.question-image");
             
             // set all display modes to none
             for (i = 0; i < question_elements.length; i++) {
@@ -323,13 +333,13 @@
     <div id="context">
         <!-- The question queryset is iterated over, creating all question context elements -->
         {% for question in question_data %}
-            <strong class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} [Spec: {{ question.spec_point }}]</strong>
+            <strong class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.spec_point }}]</strong>
             <p class="question-paragraph q{{ forloop.counter }}">
                 {{ question.question }}
             </p>
 
             {% if question.diagram %}
-                <p class='question-paragraph q{{ forloop.counter }}'>Has Diagram</p>
+                <img class='question-image q{{ forloop.counter }}' src='https://www.indiabix.com/_files/images/engineering-mechanics/pg2-9.png'>
             {% endif %}
         {% endfor %}
     </div>
