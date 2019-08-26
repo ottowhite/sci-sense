@@ -149,6 +149,10 @@
             background-color: var(--primary-hover);
         }
 
+        #content-wrapper {
+            height: 85%;
+        }
+
     </style>
 {% endblock %}
 
@@ -278,7 +282,7 @@
     <div id="context">
         <!-- The question queryset is iterated over, creating all question context elements -->
         {% for question in question_data %}
-            <h1 class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} (Spec: {{ question.spec_point }})</h1>
+            <h2 class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} (Spec: {{ question.spec_point }})</h1>
             <p class="question-paragraph q{{ forloop.counter }}">
                 {{ question.question }}
             </p>

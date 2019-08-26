@@ -4,11 +4,19 @@
 {% block stylesheets %}
     {{ block.super }}
 
+    <style id='generate-quiz-css'>
+        #content {
+            padding: 3em;
+            margin-bottom: 6em;
+            
+            justify-self: center;
+            align-self: center;
+        }
+    </style>
 {% endblock %}
 
 {% block scripts %}
     {{ block.super }}
-    
 {% endblock %}
 
 {% block content %}
@@ -21,5 +29,4 @@
 
         <button type="submit">Generate quiz!</button>
     </form>
-
 {% endblock content %}

@@ -9,16 +9,23 @@
         as it is responsible for styling the navigation bar and
         empty content block */
 
+        /* Overall wrapper CSS */
+        #wrapper {
+            position: relative;
+            
+            height: 100%;
+        }
+
         /* navbar CSS */
         #top-bar-wrapper {
             display: grid;
             grid-template-columns: 1fr 9fr;
-            grid-gap: 0.7em;
 
             
             padding-top: 0.7em;
-            margin-right: 3em;
-            margin-left: 3em;
+            padding-right: 3em;
+            padding-left: 3em;
+            padding-bottom: 0.35em;
         }
 
         #nav-box {
@@ -58,9 +65,13 @@
 
         /* Content CSS */
         .content-wrapper {
-            margin-right: 3em;
-            margin-left: 3em;
-            margin-top: 0.7em;
+            display: grid;
+            
+            padding-right: 3em;
+            padding-left: 3em;
+            padding-top: 0.35em;
+
+            height: 85%;
         }
 
         .box {
@@ -69,54 +80,53 @@
             color: var(--primary-text);
             background-color: var(--primary-content);
         }
-
-        #content {
-            height: 85%;
-        }
     </style>
 {% endblock %}
 
 {% block body %}
 
-    <!-- Wrapper for all navigation/top-bar related elements for all  -->
-    <div id="top-bar-wrapper">
+    <div id="wrapper">
+        <!-- Wrapper for all navigation/top-bar related elements for all  -->
+        <div id="top-bar-wrapper">
 
-        <!-- Logo image displayed to the left of navigation bar -->
-        <img id="logo-image" src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png">
+            <!-- Logo image displayed to the left of navigation bar -->
+            <img id="logo-image" src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png">
+            
+            <!-- The box containing all menu elements -->
+            <div id="nav-box">
+    
+                <!-- The nav bar displays different elements depending on the status (student/teacher) of the user -->
+                {% if user_data.is_teacher %}
+                    <ul id="menu-list">
+                        <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a> </li>
+                    </ul>
+                {% else %}
+                    <ul id="menu-list">
+                        <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>
+                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
         
-        <!-- The box containing all menu elements -->
-        <div id="nav-box">
-
-            <!-- The nav bar displays different elements depending on the status (student/teacher) of the user -->
-            {% if user_data.is_teacher %}
-                <ul id="menu-list">
-                    <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                    <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a> </li>
-                </ul>
-            {% else %}
-                <ul id="menu-list">
-                    <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                    <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Terms and definitions</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>
-                    <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user_data.forename }} {{ user_data.surname }}</a></li>
-                </ul>
-            {% endif %}
+        <div class="content-wrapper">
+            <div class="box" id="content">
+                {% block content %} 
+                    <!-- This block is overwritten by the actual page contents -->
+                {% endblock content %}
+            </div>
         </div>
     </div>
     
-    <div class="content-wrapper">
-        <div class="box" id="content">
-            {% block content %} 
-                <!-- This block is overwritten by the actual page contents -->
-            {% endblock content %}
-        </div>
-    </div>
     
 
 {% endblock body %}

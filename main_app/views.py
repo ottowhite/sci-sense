@@ -91,8 +91,13 @@ class QuizView(TemplateView):
         # are in the wrong order
         (start, end) = (end, start) if start > end else (start, end)
 
-        # ensuring that there can be no more than 30 questions in a quiz
-        maximum = 30 if maximum > 30 else maximum
+        # ensuring that there can be no more than 30 questions in a quiz, and that numbers below 1 give a max of 10
+        if maximum > 30:
+            maximum = 30
+        elif maximum < 1:
+            maximum = 10
+        # ensuring that there are a valid number of questions entered
+
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
