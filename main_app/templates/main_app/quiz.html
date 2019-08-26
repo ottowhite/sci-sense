@@ -9,11 +9,12 @@
             display: grid;
 
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
+            grid-template-rows: repeat(6, 1fr);
         }
 
         #context {
             grid-column: 1/5;
+            grid-row: 1/4; 
         }
 
         #context > p {
@@ -30,24 +31,44 @@
             border-radius: 10px;
         }
 
+        .a1-box.diagram {
+            grid-column: 1/3;
+            grid-row: 4/5;
+        }
+
+        .a2-box.diagram {
+            grid-column: 3/5;
+            grid-row: 4/5;
+        }
+
+        .a3-box.diagram {
+            grid-column: 1/3;
+            grid-row: 5/6;
+        }
+
+        .a4-box.diagram {
+            grid-column: 3/5;
+            grid-row: 5/6;
+        }
+
         .a1-box {
             grid-column: 1/3;
-            grid-row: 2/3;
+            grid-row: 2/4;
         }
 
         .a2-box {
             grid-column: 3/5;
-            grid-row: 2/3;
+            grid-row: 2/4;
         }
 
         .a3-box {
             grid-column: 1/3;
-            grid-row: 3/4;
+            grid-row: 4/6;
         }
 
         .a4-box {
             grid-column: 3/5;
-            grid-row: 3/4;
+            grid-row: 4/6;
         }
 
         .question-span {
@@ -57,8 +78,29 @@
 
         /* Question number CSS */
         #question-numbers-wrapper {
-            grid-column: 1/5;
+            display: grid;
+            
+            grid-column: 1/4;
+            grid-row: 6/7;
             align-self: end;
+            
+            height: auto;
+            
+            grid-gap: 0.7em;
+            grid-template-columns: repeat(30, 50px);
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        #nav-items-wrapper {
+            grid-column: 4/5;
+            grid-row: 6/7;
+            align-self: end;
+            align-items: end;
         }
 
         .question-number {
@@ -92,7 +134,7 @@
             display: grid;
             
             background-color: var(--accent-colour);
-            float: left;
+            float: right;
             height: 40px;
             width: 40px;
             margin: 0.7em;
@@ -107,7 +149,7 @@
             display: grid;
             
             background-color: var(--accent-colour);
-            float: left;
+            float: right;
             height: 40px;
             width: 40px;
             margin: 0.7em;
@@ -147,10 +189,6 @@
 
         #finished-button:hover {
             background-color: var(--primary-hover);
-        }
-
-        #content-wrapper {
-            height: 85%;
         }
 
     </style>
@@ -200,7 +238,10 @@
             }
             
             // darken the selected question
-            document.getElementById("q" + current_question + "-nav").style.backgroundColor = hover_colour;
+            current_question_div = document.getElementById("q" + current_question + "-nav")
+
+            current_question_div.style.backgroundColor = hover_colour;
+            current_question_div.scrollIntoView();
         
         }
 
@@ -282,19 +323,30 @@
     <div id="context">
         <!-- The question queryset is iterated over, creating all question context elements -->
         {% for question in question_data %}
-            <h2 class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} (Spec: {{ question.spec_point }})</h1>
+            <strong class="question-header q{{ forloop.counter }}">Question {{ forloop.counter }} [Spec: {{ question.spec_point }}]</strong>
             <p class="question-paragraph q{{ forloop.counter }}">
                 {{ question.question }}
             </p>
+
+            {% if question.diagram %}
+                <p class='question-paragraph q{{ forloop.counter }}'>Has Diagram</p>
+            {% endif %}
         {% endfor %}
     </div>
 
     <!-- The question queryset is iterated over, creating all divs and elements for all questions -->
     {% for question in question_data %}
-        <div class="question-box a1-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
-        <div class="question-box a2-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
-        <div class="question-box a3-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
-        <div class="question-box a4-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
+        {% if question.diagram %}
+            <div class="question-box a1-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
+            <div class="question-box a2-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
+            <div class="question-box a3-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
+            <div class="question-box a4-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
+        {% else %}
+            <div class="question-box a1-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
+            <div class="question-box a2-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
+            <div class="question-box a3-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
+            <div class="question-box a4-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
+        {% endif %}
     {% endfor %}
 
 
@@ -304,14 +356,11 @@
             <div class="question-number" id="q{{ forloop.counter }}-nav" onclick="select_question({{ forloop.counter }})">
                 <span class="question-nav-span">{{ forloop.counter }}</span>
             </div>
-        {% endfor %}
-
-
+        {% endfor %} 
+    </div>
+    <div id="nav-items-wrapper">
+        <div id="finished-button" onclick="check_answers()"><span id="finished-span">Finish</span></div>
+        <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>  
         <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
-        <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>    
-        <div id="finished-button" onclick="check_answers()"><span id="finished-span">Finish</span></div>   
-        
-
-        
     </div>
 {% endblock content %}

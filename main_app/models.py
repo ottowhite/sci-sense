@@ -5,6 +5,7 @@ class Question(models.Model):
     spec_point = models.FloatField()
     
     question = models.TextField()
+    diagram = models.BooleanField(default=False)
     a = models.CharField(max_length=50)
     b = models.CharField(max_length=50)
     c = models.CharField(max_length=50)

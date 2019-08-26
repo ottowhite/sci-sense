@@ -96,7 +96,6 @@ class QuizView(TemplateView):
             maximum = 30
         elif maximum < 1:
             maximum = 10
-        # ensuring that there are a valid number of questions entered
 
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
