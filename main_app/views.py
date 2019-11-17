@@ -113,7 +113,32 @@ class QuizView(TemplateView):
 
 
     def post(self, request):
-        pass
+        # retrieving the different form values from the address, casting to according data types
+        start = float(request.GET.get('starting_specification_point'))
+        end = float(request.GET.get('ending_specification_point'))
+        maximum = int(request.GET.get('maximum_questions'))
+
+        # swapping the order of the start and end spec position if they 
+        # are in the wrong order
+        (start, end) = (end, start) if start > end else (start, end)
+
+        # ensuring that there can be no more than 30 questions in a quiz, and that numbers below 1 give a max of 10
+        if maximum > 30:
+            maximum = 30
+        elif maximum < 1:
+            maximum = 10
+
+        # also adds a randomly ordered queryset of given length within the given range, containing questions
+        args = {
+            'user_data': user_data,
+            'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
+            'title': 'Do quiz'
+        }
+
+        print(request.POST['answers'])
+
+        return render(request, self.template_name, args)
+
 
 class ReviewQuizView(TemplateView):
     template_name = 'main_app/review_quiz.html'

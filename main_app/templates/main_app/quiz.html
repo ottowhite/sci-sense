@@ -327,7 +327,8 @@
         select_question(1); // always select the first question when the quiz starts
 
         function submit_answers() {
-            console.log(answers)
+            document.getElementById('hidden_field').value = 'test'
+            document.getElementById('hidden_form').submit()
         }
 
         
@@ -382,5 +383,9 @@
         <div id="finished-button" onclick="submit_answers()"><span id="finished-span">Finish</span></div>
         <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>  
         <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
+        <form id='hidden_form' method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="hidden_field" name="answers">
+        </form>
     </div>
 {% endblock content %}
