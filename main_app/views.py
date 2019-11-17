@@ -9,7 +9,7 @@ from django.urls import reverse
 
 # querying the user model
 try:
-    user_data = AppUser.objects.get(Q(username="britannioj") & Q(password="MLG"))
+    user_data = AppUser.objects.get(Q(username="ottowhite") & Q(password="password"))
 except ObjectDoesNotExist:
     user_data = None
 
@@ -30,8 +30,10 @@ class HomeView(TemplateView):
         # the render method will combine the template with given context, then return generated HttpResponse
         return render(request, self.template_name, args)
 
+
 class GenerateQuizView(TemplateView):
     template_name = 'main_app/generate_quiz.html'
+
 
     def get(self, request):
         # This method handles the GET request upon intially viewing the page
@@ -48,7 +50,8 @@ class GenerateQuizView(TemplateView):
 
         # render the page with the according context
         return render(request, self.template_name, args)
-    
+
+
     def post(self, request):
         # This method handles the GET request upon intially viewing the page
 
@@ -61,7 +64,7 @@ class GenerateQuizView(TemplateView):
             'form': form,
             'title': 'Generate quiz'
         }
-
+        
         # ensuring that the form inputs are valid
         if form.is_valid():
             # retrieving the absolute url of the main quiz page through a reverse lookup based on the
@@ -78,8 +81,10 @@ class GenerateQuizView(TemplateView):
             # creating a get request with parameters from the form
             return redirect(f'{base_url}?{query_string}')
 
+
 class QuizView(TemplateView):
     template_name = 'main_app/quiz.html'
+
 
     def get(self, request):
         # retrieving the different form values from the address, casting to according data types
@@ -97,7 +102,6 @@ class QuizView(TemplateView):
         elif maximum < 1:
             maximum = 10
 
-
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
             'user_data': user_data,
@@ -106,3 +110,24 @@ class QuizView(TemplateView):
         }
 
         return render(request, self.template_name, args)
+
+
+    def post(self, request):
+        pass
+
+class ReviewQuizView(TemplateView):
+    template_name = 'main_app/review_quiz.html'
+
+
+    def get(self, request):
+        # also adds a randomly ordered queryset of given length within the given range, containing questions
+        args = {
+            'user_data': user_data,
+            'title': 'Do quiz'
+        }
+
+        return render(request, self.template_name, args)
+
+
+    def post(self, request):
+        pass

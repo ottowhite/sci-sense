@@ -13,6 +13,7 @@ class GenerateQuizForm(forms.Form):
     choices = [(x['spec_point'], x['spec_point']) for x in Question.objects.order_by("spec_point").distinct().values('spec_point')]
 
 
+    spec_range = forms.CheckboxInput()
     starting_specification_point = forms.ChoiceField(choices=choices)
     ending_specification_point = forms.ChoiceField(choices=choices)
     maximum_questions = forms.IntegerField()
