@@ -327,7 +327,27 @@
         select_question(1); // always select the first question when the quiz starts
 
         function submit_answers() {
-            document.getElementById('hidden_field').value = 'test'
+            
+            formatted_answers = ""
+
+            for (var i = 1; i <= number_of_quesions; i++) {
+                if (answers[i]['student_answer'] == null) {
+                    answers[i]['student_answer'] = 'None'
+                } else {
+                    answers[i]['student_answer'] = "'" + answers[i]['student_answer'] + "'"
+                }
+                
+                if (i == number_of_quesions) {
+                    formatted_answers += "{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}]"
+                } else if (i == 1) {
+                    formatted_answers += "[{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}, "
+                } else {
+                    formatted_answers += "{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}, "
+                }
+                
+            }
+            
+            document.getElementById('hidden_field').value = formatted_answers
             document.getElementById('hidden_form').submit()
         }
 

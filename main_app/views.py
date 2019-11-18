@@ -113,6 +113,7 @@ class QuizView(TemplateView):
 
 
     def post(self, request):
+        # SAME AS GET --------------------------------------------------------------------------------
         # retrieving the different form values from the address, casting to according data types
         start = float(request.GET.get('starting_specification_point'))
         end = float(request.GET.get('ending_specification_point'))
@@ -135,7 +136,17 @@ class QuizView(TemplateView):
             'title': 'Do quiz'
         }
 
-        print(request.POST['answers'])
+        # ----------------------------------------------------------------------------------------------
+
+        answers = eval(request.POST['answers'])
+
+        for x in range(len(answers)):
+            correct_answer = Question.objects.get(id=answers[x]['id']).answer
+            answers[x].update({'correct_answer': correct_answer})
+        
+        print(answers)
+        
+
 
         return render(request, self.template_name, args)
 
