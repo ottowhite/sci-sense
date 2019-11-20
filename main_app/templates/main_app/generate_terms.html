@@ -20,13 +20,13 @@
 {% endblock %}
 
 {% block content %}
-    <h1 style="text-align: center;">Generate quiz</h1>
+    <h1 style="text-align: center;">Display terms <br>and definitions</h1>
     <form method="POST">
         {% csrf_token %}
 
         <!-- Renders the form with paragraph tags -->
         {{ form.as_p }}
 
-        <button type="submit">Generate quiz!</button>
+        <button type="submit">Go</button>
     </form>
 {% endblock content %}

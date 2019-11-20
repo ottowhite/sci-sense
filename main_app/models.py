@@ -12,6 +12,13 @@ class Question(models.Model):
     d = models.CharField(max_length=50)
     answer = models.CharField(max_length=1)
 
+class Term(models.Model):
+
+    spec_point = models.FloatField()
+    term = models.TextField()
+    definition = models.TextField()
+
+
 class AppUser(models.Model):
     username = models.CharField(max_length=15)
     password = models.CharField(max_length=25) # this field is temporary; will be replace with hashed password field

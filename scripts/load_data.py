@@ -1,5 +1,5 @@
 import pandas as pd
-from main_app.models import Question
+from main_app.models import Question, Term
 import numpy as np
 import ipdb
 
@@ -23,4 +23,17 @@ def import_questions(csv_path):
     ipdb.set_trace()
     Question.objects.bulk_create(question_list)
 
-import_questions(csv_path)
+def import_terms_temp():
+    
+    term_list = []
+    for x in range(11, 80):
+        spec_point = x / 10
+        term = "This is a term"
+        definition = "This is a definition"
+
+        term_list.append(Term(spec_point=spec_point, term=term, definition=definition))
+
+    ipdb.set_trace()
+    Term.objects.bulk_create(term_list)
+
+

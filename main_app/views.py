@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import AppUser
 from .models import Question
-from main_app.forms import GenerateQuizForm
+from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import Q, ObjectDoesNotExist
 from urllib.parse import urlencode
 from django.urls import reverse
@@ -40,6 +40,57 @@ class GenerateQuizView(TemplateView):
 
         # create a new form for the page
         form = GenerateQuizForm()
+
+        # defining some arguments to be interacted with on the page
+        args = {
+            'user_data': user_data,
+            'form': form,
+            'title': 'Generate quiz'
+        }
+
+        # render the page with the according context
+        return render(request, self.template_name, args)
+
+
+    def post(self, request):
+        # This method handles the GET request upon intially viewing the page
+
+        # create a form variable on the page containing the filled out post data
+        form = GenerateQuizForm(request.POST)
+
+        # defining some arguments to be interacted with on the page
+        args = {
+            'user_data': user_data,
+            'form': form,
+            'title': 'Generate quiz'
+        }
+        
+        # ensuring that the form inputs are valid
+        if form.is_valid():
+            # retrieving the absolute url of the main quiz page through a reverse lookup based on the
+            # name defined on created url patterns
+            base_url = reverse('main-quiz')
+
+            # converting a dict containing GET data into a querystring to be used in the quiz page request
+            query_string = urlencode({
+                'starting_specification_point': form.cleaned_data['starting_specification_point'],
+                'ending_specification_point': form.cleaned_data['ending_specification_point'],
+                'maximum_questions': form.cleaned_data['maximum_questions']
+            })
+
+            # creating a get request with parameters from the form
+            return redirect(f'{base_url}?{query_string}')
+
+
+class GenerateTermsView(TemplateView):
+    template_name = 'main_app/generate_terms.html'
+
+
+    def get(self, request):
+        # This method handles the GET request upon intially viewing the page
+
+        # create a new form for the page
+        form = GenerateTermsForm()
 
         # defining some arguments to be interacted with on the page
         args = {
