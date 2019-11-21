@@ -207,8 +207,19 @@ class TermsView(TemplateView):
     
 
     def get(self, request):
+        from .models import Term
+
+        # retrieving the different form values from the address, casting to according data types
+        start = float(request.GET.get('starting_specification_point'))
+        end = float(request.GET.get('ending_specification_point'))
+
+        # swapping the order of the start and end spec position if they 
+        # are in the wrong order
+        (start, end) = (end, start) if start > end else (start, end)
+        
         args = {
             'user_data': user_data,
+            'terms': Term.objects.filter(spec_point__range=(start, end)).order_by('?'),
             'title': 'Terms and definitions'
         }
 

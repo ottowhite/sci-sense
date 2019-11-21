@@ -1,24 +1,134 @@
 <!-- Allows the page to override blocks defined in the logged_in page -->
-{% extends "main_app/logged_in.html" %}
+{% extends 'main_app/logged_in.html' %}
+
+{% block scripts %}
+    {{ block.super }}
+    
+{% endblock %}
 
 {% block stylesheets %}
     {{ block.super }}
 
     <style id='generate-quiz-css'>
         #content {
+            display: grid;
             padding: 3em;
             margin-bottom: 6em;
             
             justify-self: center;
             align-self: center;
+
+            height: 450px;
+            width: 700px;
         }
+
+        .content-wrapper {
+            padding: 2em;
+        }
+
+        #card {
+            display: grid;
+
+            grid-column: 1/4;
+            grid-row: 2/2;
+            justify-items: center;
+            align-items: center;
+
+            background-color: var(--accent-colour);
+            border-radius: 20px;
+        }
+
+        #card #definition {
+            display: none;
+        }
+
+        #card #term {
+            justify-self: center;
+        }
+
+        #actions-container {
+            justify-self: center;
+            align-self: center;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 5fr 1fr;
+
+            height: 375px;
+            width: 550px;
+
+        }
+
+        .button {
+            margin: 0.25em;
+            margin-top: 0.75em;
+            height: 60px;
+            width: 60px;
+            border-radius: 100px;
+            background-color: var(--accent-colour);
+        }
+
+        #next-button {
+            display: grid;
+            justify-self: end;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 3/4;
+        }
+
+        #previous-button {
+            display: grid;
+            justify-self: start;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 1/2;
+        }
+
+        #next-button-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        #previous-button-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        #question-number-span {
+            justify-self: center;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 2/3;
+        }
+
+        #back-button {
+            display: grid;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+        }
+
+        #back-button-span {
+            justify-self: center;
+            align-self: center;
+            color: black;
+        }
+
     </style>
 {% endblock %}
 
-{% block scripts %}
-    {{ block.super }}
-{% endblock %}
-
 {% block content %}
-    <h1>View terms</h1>
+    <div id='actions-container'>
+        <a href="{% url 'main-generate-terms' %}" style="text-decoration: none;"><div class='button' id="back-button"><span id="back-button-span"> Back </span></div></a>
+        <div id='card'>
+            <div id='term'>Term 1</div>
+            <div id='definition'>Definition 1</div>
+        </div>
+        <div class='button' id="previous-button" onclick=""><span id="previous-button-span"> < </span></div>
+        <span id="question-number-span">1/12</span>
+        <div class='button' id="next-button" onclick=""><span id="next-button-span"> > </span></div> 
+    </div>
 {% endblock content %}
