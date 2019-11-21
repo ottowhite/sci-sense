@@ -1,5 +1,5 @@
 from django import forms
-from main_app.models import Question
+from main_app.models import Question, Term
 
 import ipdb
 
@@ -23,7 +23,7 @@ class GenerateTermsForm(forms.Form):
 
     # loading all distinct spec points that exist in the database a lists of tuples - (human readable, passed value)
     
-    choices = [(x['spec_point'], x['spec_point']) for x in Question.objects.order_by("spec_point").distinct().values('spec_point')]
+    choices = [(x['spec_point'], x['spec_point']) for x in Term.objects.order_by("spec_point").distinct().values('spec_point')]
 
 
     starting_specification_point = forms.ChoiceField(choices=choices)

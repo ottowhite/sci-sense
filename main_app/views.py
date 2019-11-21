@@ -96,7 +96,7 @@ class GenerateTermsView(TemplateView):
         args = {
             'user_data': user_data,
             'form': form,
-            'title': 'Generate quiz'
+            'title': 'Display terms and definitions'
         }
 
         # render the page with the according context
@@ -107,26 +107,25 @@ class GenerateTermsView(TemplateView):
         # This method handles the GET request upon intially viewing the page
 
         # create a form variable on the page containing the filled out post data
-        form = GenerateQuizForm(request.POST)
+        form = GenerateTermsForm(request.POST)
 
         # defining some arguments to be interacted with on the page
         args = {
             'user_data': user_data,
             'form': form,
-            'title': 'Generate quiz'
+            'title': 'Terms and Definitions'
         }
         
         # ensuring that the form inputs are valid
         if form.is_valid():
             # retrieving the absolute url of the main quiz page through a reverse lookup based on the
             # name defined on created url patterns
-            base_url = reverse('main-quiz')
+            base_url = reverse('main-terms')
 
             # converting a dict containing GET data into a querystring to be used in the quiz page request
             query_string = urlencode({
                 'starting_specification_point': form.cleaned_data['starting_specification_point'],
                 'ending_specification_point': form.cleaned_data['ending_specification_point'],
-                'maximum_questions': form.cleaned_data['maximum_questions']
             })
 
             # creating a get request with parameters from the form
@@ -198,6 +197,20 @@ class QuizView(TemplateView):
         print(answers)
         
 
+
+        return render(request, self.template_name, args)
+
+
+class TermsView(TemplateView):
+    template_name = 'main_app/terms.html'
+
+    
+
+    def get(self, request):
+        args = {
+            'user_data': user_data,
+            'title': 'Terms and definitions'
+        }
 
         return render(request, self.template_name, args)
 
