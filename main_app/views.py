@@ -34,6 +34,7 @@ class HomeView(TemplateView):
 class GenerateQuizView(TemplateView):
     template_name = 'main_app/generate_quiz.html'
 
+    # EDGE CASE: 1 QUESTION QUIZ RESULTS IN SYNTAX ERROR
 
     def get(self, request):
         # This method handles the GET request upon intially viewing the page

@@ -36,4 +36,27 @@ def import_terms_temp():
     ipdb.set_trace()
     Term.objects.bulk_create(term_list)
 
+def import_terms(csv_path):
+    terms = pd.read_csv(csv_path, encoding='ISO-8859-1', header=None, names=['spec_point', 'term', 'definition'])
+
+    terms['term'] = terms.iloc[0:-1:2]
+    terms['definition'] = terms.iloc[1:-2:2]
+    terms['definition'] = terms['definition'].shift(-1)
+
+    terms['spec_point'] = 0
+
+    terms = terms.dropna()
+    terms = terms.reset_index(drop=True)
+
+    terms['spec_point'] = ((terms.index+1) % 100) / 10
+    terms['spec_point'] += 1
+
+    term_list = []
+
+    for x in range(len(terms.values)):
+        term_list.append(Term(spec_point=terms.values[x][0], term=terms.values[x][1], definition=terms.values[x][2]))
+
+    ipdb.set_trace()
+    Term.objects.bulk_create(term_list)
+
 
