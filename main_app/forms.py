@@ -28,3 +28,4 @@ class GenerateTermsForm(forms.Form):
 
     starting_specification_point = forms.ChoiceField(choices=choices)
     ending_specification_point = forms.ChoiceField(choices=choices)
+    in_order = forms.BooleanField(required=False)

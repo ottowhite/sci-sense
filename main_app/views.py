@@ -127,6 +127,7 @@ class GenerateTermsView(TemplateView):
             query_string = urlencode({
                 'starting_specification_point': form.cleaned_data['starting_specification_point'],
                 'ending_specification_point': form.cleaned_data['ending_specification_point'],
+                'in_order': form.cleaned_data['in_order']
             })
 
             # creating a get request with parameters from the form
@@ -213,14 +214,20 @@ class TermsView(TemplateView):
         # retrieving the different form values from the address, casting to according data types
         start = float(request.GET.get('starting_specification_point'))
         end = float(request.GET.get('ending_specification_point'))
+        in_order = request.GET.get('in_order')
 
         # swapping the order of the start and end spec position if they 
         # are in the wrong order
         (start, end) = (end, start) if start > end else (start, end)
+
+        if in_order == 'True':
+            terms = Term.objects.filter(spec_point__range=(start, end))
+        else:
+            terms = Term.objects.filter(spec_point__range=(start, end)).order_by('?')
         
         args = {
             'user_data': user_data,
-            'terms': Term.objects.filter(spec_point__range=(start, end)).order_by('?'),
+            'terms': terms,
             'title': 'Terms and definitions'
         }
 
