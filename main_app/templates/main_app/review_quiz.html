@@ -274,13 +274,11 @@
             
             // creates an answers object where each question has its own attribute
             // each question attribute is another object of the information for each question
-            // ANSWER STORAGE IS TEMPORARY
             answers = {
                 {% for question in question_data %}
                     {{ forloop.counter }}: {
                         "id": {{ question.id }},
-                        "student_answer": null,
-                        "answer": "{{ question.answer }}",
+                        "student_answer": null
                     },
                 {% endfor %}
             };
@@ -329,43 +327,7 @@
         select_question(1); // always select the first question when the quiz starts
 
         function submit_answers() {
-            // REMOVE RETRIEVED ANSWERS
-            
-            formatted_answers = ""
-
-            for (var i = 1; i <= number_of_quesions; i++) {
-                if (answers[i]['student_answer'] == null) {
-                    answers[i]['student_answer'] = 'None'
-                } else {
-                    answers[i]['student_answer'] = "'" + answers[i]['student_answer'] + "'"
-                }
-                
-                if (i == number_of_quesions) {
-                    formatted_answers += "{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}]"
-                } else if (i == 1) {
-                    formatted_answers += "[{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}, "
-                } else {
-                    formatted_answers += "{'id': " + answers[i]['id'].toString() + ", 'student_answer': " + answers[i]['student_answer'].toString() + "}, "
-                }
-                
-            }
-            
-            document.getElementById('hidden_field').value = formatted_answers
-            document.getElementById('hidden_form').submit()
-        }
-
-        function temp_sumbit() {
-            
-            total_correct = 0;
-            // iteratively create a total of the number of questions that were answered correctly
-            for (var i = 1; i <= number_of_quesions; i++) {
-                if (answers[i]["student_answer"] == answers[i]["answer"]) {
-                    total_correct++;
-                }
-            }
-
-            percentage_correct = (total_correct / number_of_quesions) * 100
-            alert("You got " + percentage_correct + "% correct");
+            console.log(answers)
         }
 
         
@@ -417,12 +379,8 @@
         {% endfor %} 
     </div>
     <div id="nav-items-wrapper">
-        <div id="finished-button" onclick="temp_sumbit()"><span id="finished-span">Finish</span></div>
+        <div id="finished-button" onclick="submit_answers()"><span id="finished-span">Finish</span></div>
         <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>  
         <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
-        <form id='hidden_form' method="POST">
-            {% csrf_token %}
-            <input type="hidden" id="hidden_field" name="answers">
-        </form>
     </div>
 {% endblock content %}

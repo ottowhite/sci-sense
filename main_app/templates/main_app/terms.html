@@ -1,0 +1,210 @@
+<!-- Allows the page to override blocks defined in the logged_in page -->
+{% extends 'main_app/logged_in.html' %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        number_of_cards = {{ terms.count }}
+        current_card = 1
+        
+        function flip(card_number) {
+            card = document.getElementById('card' + card_number).getElementsByClassName('card-inner')[0]
+
+            if (card.style.transform == '' || card.style.transform == "rotateX(0deg)") {
+                card.style.transform = 'rotateX(180deg)'
+            } else {
+                card.style.transform = 'rotateX(0deg)'
+            }
+        }
+
+        function display_card(card_number) {
+            if (card_number == 'previous') {
+                console.log('displaying previous')
+                if (current_card != 1) {
+                    display_card(current_card - 1)
+                    current_card -= 1
+                }
+            } else if (card_number == 'next') {
+                console.log('displaying next')
+                if (current_card != number_of_cards) {
+                    display_card(current_card + 1)
+                    current_card += 1
+                }
+            } else {
+                for (var i = 1; i <= number_of_cards; i++) {
+                    document.getElementById('card' + i).style.display = 'none'
+                    document.getElementById('q' + i).style.display = 'none'
+                }
+            
+                document.getElementById('card' + card_number).style.display = 'grid'
+                document.getElementById('q' + card_number).style.display = 'inline-block'
+            }
+            
+        }
+
+        display_card(1)
+    </script>
+    
+{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+
+    <style id='generate-quiz-css'>
+
+        /* Content container */
+        #content {
+            display: grid;
+            padding: 3em;
+            margin-bottom: 6em;
+            
+            justify-self: center;
+            align-self: center;
+
+            height: 450px;
+            width: 700px;
+        }
+
+        .content-wrapper {
+            padding: 2em;
+        }
+
+        /* Rotating card */
+        .card {
+            display: none;
+
+            grid-column: 1/4;
+            grid-row: 2/2;
+            justify-items: center;
+            align-items: center;
+
+            background-color: transparent;
+            border: 0;
+            border-radius: 20px;
+            perspective: 2000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-colour);
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 20px;
+
+            justify-self: center;
+            align-self: center;
+        }
+
+        .term, .definition {
+            display: grid;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .definition {
+            transform: rotateX(180deg);
+        }
+
+        /* Content grid, sizing, centering content */
+        #actions-container {
+            justify-self: center;
+            align-self: center;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 5fr 1fr;
+
+            height: 375px;
+            width: 550px;
+
+        }
+
+        /* Button */
+        .button {
+            margin: 0.25em;
+            margin-top: 0.75em;
+            height: 60px;
+            width: 60px;
+            border-radius: 100px;
+            background-color: var(--accent-colour);
+        }
+
+        #next-button {
+            display: grid;
+            justify-self: end;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 3/4;
+        }
+
+        #previous-button {
+            display: grid;
+            justify-self: start;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 1/2;
+        }
+
+        #next-button-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        #previous-button-span {
+            justify-self: center;
+            align-self: center;
+        }
+
+        .question-number-span {
+            display: none;
+            justify-self: center;
+            align-self: center;
+
+            grid-row: 3/4;
+            grid-column: 2/3;
+        }
+
+        #back-button {
+            display: grid;
+            width: 80px;
+            height: 35px;
+            border-radius: 10px;
+        }
+
+        #back-button-span {
+            justify-self: center;
+            align-self: center;
+            color: black;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id='actions-container'>
+        <a href="{% url 'main-generate-terms' %}" style="text-decoration: none;"><div class='button' id="back-button"><span id="back-button-span"> Back </span></div></a>
+
+        {% for term in terms %}
+            <div class='card' id='card{{ forloop.counter }}' onclick='flip({{ forloop.counter }})'>
+                <div class='card-inner'>
+                    <div class='term'>{{ term.term }}</div>
+                    <div class='definition'>{{ term.definition }}</div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class='button' id="previous-button" onclick="display_card('previous')"><span id="previous-button-span"> < </span></div>
+        {% for term in terms %}
+            <span class="question-number-span" id="q{{ forloop.counter }}">Term {{ forloop.counter }} / {{ terms.count }} [Spec: {{ term.spec_point }}]</span>
+        {% endfor %}
+        <div class='button' id="next-button" onclick="display_card('next')"><span id="next-button-span"> > </span></div> 
+    </div>
+{% endblock content %}
