@@ -6,6 +6,7 @@ from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import Q, ObjectDoesNotExist
 from urllib.parse import urlencode
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # querying the user model
 try:
@@ -13,8 +14,11 @@ try:
 except ObjectDoesNotExist:
     user_data = None
 
+class LoginRequiredTemplateView(LoginRequiredMixin, TemplateView):
+    login_url = '/login/'
 
-class HomeView(TemplateView):
+
+class HomeView(LoginRequiredTemplateView):
     template_name = 'main_app/home.html'
 
 
@@ -31,7 +35,7 @@ class HomeView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class GenerateQuizView(TemplateView):
+class GenerateQuizView(LoginRequiredTemplateView):
     template_name = 'main_app/generate_quiz.html'
 
     # EDGE CASE: 1 QUESTION QUIZ RESULTS IN SYNTAX ERROR
@@ -83,7 +87,7 @@ class GenerateQuizView(TemplateView):
             return redirect(f'{base_url}?{query_string}')
 
 
-class GenerateTermsView(TemplateView):
+class GenerateTermsView(LoginRequiredTemplateView):
     template_name = 'main_app/generate_terms.html'
 
 
@@ -134,7 +138,7 @@ class GenerateTermsView(TemplateView):
             return redirect(f'{base_url}?{query_string}')
 
 
-class QuizView(TemplateView):
+class QuizView(LoginRequiredTemplateView):
     template_name = 'main_app/quiz.html'
 
 
@@ -203,7 +207,7 @@ class QuizView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class TermsView(TemplateView):
+class TermsView(LoginRequiredTemplateView):
     template_name = 'main_app/terms.html'
 
     
@@ -234,7 +238,7 @@ class TermsView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class ReviewQuizView(TemplateView):
+class ReviewQuizView(LoginRequiredTemplateView):
     template_name = 'main_app/review_quiz.html'
 
 
