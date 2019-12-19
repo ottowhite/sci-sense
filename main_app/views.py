@@ -8,12 +8,6 @@ from urllib.parse import urlencode
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# querying the user model
-try:
-    user_data = AppUser.objects.get(Q(username="ottowhite") & Q(password="password"))
-except ObjectDoesNotExist:
-    user_data = None
-
 class LoginRequiredTemplateView(LoginRequiredMixin, TemplateView):
     login_url = '/login/'
 
@@ -27,7 +21,6 @@ class HomeView(LoginRequiredTemplateView):
         
         # the args are the different pieces of session/page data that the page will adapt to
         args = {
-            'user_data': user_data,
             'title': 'Home'
         }
 

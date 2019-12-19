@@ -40,11 +40,13 @@
 
         <!-- The title adapts to passed context with the constant prefix of "Sci.Sense - {page_name}" -->
         <!-- Otherwise a blank title of "Sci.Sense is used" -->
+        {% block title %}
         {% if title %}
             <title>Sci.Sense - {{ title }}</title>
         {% else %}
             <title>Sci.Sense</title>
         {% endif %}
+        {% endblock title %}
             
     </head>
 
