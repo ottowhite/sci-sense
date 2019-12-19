@@ -28,7 +28,7 @@ class RegisterView(TemplateView):
             username = form.cleaned_data.get('username') # retrieving the data
             form.save() # saving to the DB
             messages.success(request, f'Account created for {username}!') # adding message session variable
-            return redirect('main-home') # redirect to the home
+            return redirect('login') # redirect to the login
         else:
             # if the form is invalid it will redirect to the same page with the populated form
             args = {
