@@ -10,7 +10,10 @@ class GenerateQuizForm(forms.Form):
 
     # loading all distinct spec points that exist in the database a lists of tuples - (human readable, passed value)
     
-    choices = [(x['spec_point'], x['spec_point']) for x in Question.objects.order_by("spec_point").distinct().values('spec_point')]
+    
+    # Temporarily hard code the choices during User migrations
+    # choices = [(x['spec_point'], x['spec_point']) for x in Question.objects.order_by("spec_point").distinct().values('spec_point')]
+    choices = [(x, x) for x in [1.1, 1.2, 1.3, 1.4]]
 
     starting_specification_point = forms.ChoiceField(choices=choices)
     ending_specification_point = forms.ChoiceField(choices=choices)
@@ -23,8 +26,8 @@ class GenerateTermsForm(forms.Form):
 
     # loading all distinct spec points that exist in the database a lists of tuples - (human readable, passed value)
     
-    choices = [(x['spec_point'], x['spec_point']) for x in Term.objects.order_by("spec_point").distinct().values('spec_point')]
-
+    # choices = [(x['spec_point'], x['spec_point']) for x in Term.objects.order_by("spec_point").distinct().values('spec_point')]
+    choices = [(x, x) for x in [1.1, 1.2, 1.3, 1.4]]
 
     starting_specification_point = forms.ChoiceField(choices=choices)
     ending_specification_point = forms.ChoiceField(choices=choices)
