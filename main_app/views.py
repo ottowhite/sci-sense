@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
+from .models import AppUser
 from .models import Question
 from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import Q, ObjectDoesNotExist

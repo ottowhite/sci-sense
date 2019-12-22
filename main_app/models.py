@@ -17,3 +17,18 @@ class Term(models.Model):
     spec_point = models.FloatField()
     term = models.TextField()
     definition = models.TextField()
+
+
+class AppUser(models.Model):
+    username = models.CharField(max_length=15)
+    password = models.CharField(max_length=25) # this field is temporary; will be replace with hashed password field
+    forename = models.CharField(max_length=20)
+    surname = models.CharField(max_length=20)
+    email = models.CharField(max_length=64)
+    is_teacher = models.BooleanField()
+
+    def __str__(self):
+        # simply a to_string method to define the description of an object when it is
+        # queried in the django shell
+
+        return f"{self.forename} {self.surname} ({self.username})"
