@@ -21,7 +21,7 @@ def import_questions(csv_path):
         question_list.append(Question(spec_point=spec_point, question=question, diagram=diagram, a=a, b=b, c=c, d=d, answer=answer))
 
     ipdb.set_trace()
-    Question.objects.bulk_create(question_list)
+    # Question.objects.bulk_create(question_list)
 
 def import_terms_temp():
     

@@ -27,12 +27,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
-    'main_app.apps.MainAppConfig',  # have to add this to tell django to search for templates
-    'users.apps.UsersConfig',
+    'main_app',  # have to add this to tell django to search for templates
+    'users',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -103,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -125,3 +123,5 @@ STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'main-home'
 LOGIN_URL = 'login'
+AUTH_USER_MODEL = 'users.User'
+
