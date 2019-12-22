@@ -40,7 +40,6 @@ class GenerateQuizView(LoginRequiredTemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Generate quiz'
         }
@@ -57,7 +56,6 @@ class GenerateQuizView(LoginRequiredTemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Generate quiz'
         }
@@ -91,7 +89,6 @@ class GenerateTermsView(LoginRequiredTemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Display terms and definitions'
         }
@@ -108,7 +105,6 @@ class GenerateTermsView(LoginRequiredTemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Terms and Definitions'
         }
@@ -152,7 +148,6 @@ class QuizView(LoginRequiredTemplateView):
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
             'title': 'Do quiz'
         }
@@ -179,7 +174,6 @@ class QuizView(LoginRequiredTemplateView):
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
             'title': 'Do quiz'
         }
@@ -222,7 +216,6 @@ class TermsView(LoginRequiredTemplateView):
             terms = Term.objects.filter(spec_point__range=(start, end)).order_by('?')
         
         args = {
-            'user_data': user_data,
             'terms': terms,
             'title': 'Terms and definitions'
         }
@@ -237,7 +230,6 @@ class ReviewQuizView(LoginRequiredTemplateView):
     def get(self, request):
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'title': 'Do quiz'
         }
 
