@@ -44,6 +44,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     
+    user_id = models.AutoField(primary_key=True)
 
     # required fields
     username            = models.CharField(unique=True, max_length=60)
