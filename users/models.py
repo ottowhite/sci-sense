@@ -4,27 +4,35 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 class UserManager(BaseUserManager):
 
     # REQUIRED FUNCTIONS
-    def create_user(self, email, username, password=None): # ensure that all required fields are paramaters
-        if not username:
+    def create_user(self, email, username, first_name, last_name, password=None): # ensure that all required fields are paramaters
+        if not email:
             raise ValueError('Users must have an email. ')
         if not username:
             raise ValueError('Users must have a username. ')
+        if not first_name:
+            raise ValueError('Users must have a first name. ')
+        if not last_name:
+            raise ValueError('Users must have a last name. ')
         
         user = self.model(
-            email = self.normalize_email(email),
-            username = username,
+            email       = self.normalize_email(email),
+            username    = username,
+            first_name  = first_name,
+            last_name   = last_name
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, password):
+    def create_superuser(self, email, username, password, first_name, last_name):
         
         user = self.create_user(
-            email = self.normalize_email(email),
-            username = username,
-            password = password
+            email       = self.normalize_email(email),
+            username    = username,
+            password    = password,
+            first_name  = first_name,
+            last_name   = last_name
         )
 
         user.is_staff = True
@@ -37,7 +45,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     
 
-    # REQUIRED FIELDS
+    # required fields
     username            = models.CharField(unique=True, max_length=60)
     date_joined         = models.DateTimeField(auto_now_add=True)
     last_login          = models.DateTimeField(auto_now=True)
@@ -46,10 +54,15 @@ class User(AbstractBaseUser):
     is_admin            = models.BooleanField(default=False)
     is_superuser        = models.BooleanField(default=False)
 
+    # my required fields
     email               = models.EmailField(unique=True, max_length=60)
+    first_name          = models.CharField(max_length=60)
+    last_name           = models.CharField(max_length=60)
+
+
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username',]
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     objects = UserManager() # referencing the User manager created
 

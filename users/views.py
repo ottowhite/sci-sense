@@ -25,9 +25,13 @@ class RegisterView(TemplateView):
 
         # ensures that the form data conforms to certain validation checks
         if form.is_valid():
-            username = form.cleaned_data.get('username') # retrieving the data
+            email       = form.cleaned_data.get('email') # retrieving the data
+            first_name  = form.cleaned_data.get('first_name')
+            last_name   = form.cleaned_data.get('last_name')
+            is_teacher  = form.cleaned_data.get('is_teacher')
+
             form.save() # saving to the DB
-            messages.success(request, f'Account created for {username}!') # adding message session variable
+            messages.success(request, f'Account created for {first_name}!') # adding message session variable
             return redirect('login') # redirect to the login
         else:
             # if the form is invalid it will redirect to the same page with the populated form
