@@ -6,6 +6,7 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
+    date_of_birth = forms.DateField(required=True, help_text='Format: YYYY-MM-DD; Example: 2003-04-30')
     is_staff = forms.BooleanField(required=False, label='I am a teacher')
     
     class Meta:
@@ -13,4 +14,4 @@ class RegisterForm(UserCreationForm):
         model = User
 
         # specifies the fields that will be displayed
-        fields = ['first_name', 'last_name', 'email', 'password1', 'password2', 'is_staff']
+        fields = ['first_name', 'last_name', 'email', 'password1', 'password2', 'date_of_birth', 'is_staff']
