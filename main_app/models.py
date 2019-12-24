@@ -29,44 +29,44 @@ class SpecReference(models.Model):
 
 class Answer(models.Model):
 
-    answer_id           = models.AutoField(primary_key=True)
-    user_id             = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
-    question_id         = models.ForeignKey(Question, on_delete=models.CASCADE)
-    date_answered       = models.DateTimeField(auto_now=True)
-    is_correct          = models.BooleanField()
+    answer_id       = models.AutoField(primary_key=True)
+    user            = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
+    question        = models.ForeignKey(Question, on_delete=models.CASCADE)
+    date_answered   = models.DateTimeField(auto_now=True)
+    is_correct      = models.BooleanField()
 
 
 class Quiz(models.Model):
     
-    quiz_id             = models.AutoField(primary_key=True)
-    spec_range          = models.TextField()  # maybe change later
-    no_questions        = models.IntegerField()
+    quiz_id         = models.AutoField(primary_key=True)
+    spec_range      = models.TextField()  # maybe change later
+    no_questions    = models.IntegerField()
 
 
 
 class QuizResult(models.Model):
 
     result_id           = models.AutoField(primary_key=True)
-    quiz_id             = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    user_id             = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
+    quiz                = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    user                = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
     percentage_correct  = models.FloatField()
 
 class Class(models.Model):
 
-    class_id        = models.AutoField(primary_key=True)
-    class_name      = models.TextField()
-    owner_id        = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
+    class_id    = models.AutoField(primary_key=True) 
+    class_name  = models.TextField()
+    class_owner = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
 
 class ClassMembership(models.Model):
 
     membership_id   = models.AutoField(primary_key=True)
-    user_id         = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
-    class_id        = models.ForeignKey(Class, on_delete=models.CASCADE)
+    user            = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
+    class_ref       = models.ForeignKey(Class, on_delete=models.CASCADE) # is class_ref as class is a keyword
 
 class Assignment(models.Model):
 
     assignment_id   = models.AutoField(primary_key=True)
     date_set        = models.DateField()
     date_due        = models.DateField()
-    quiz_id         = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    class_id        = models.ForeignKey(Class, on_delete=models.CASCADE)
+    quiz            = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    class_ref       = models.ForeignKey(Class, on_delete=models.CASCADE)
