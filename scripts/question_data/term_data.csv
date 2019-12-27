@@ -1,0 +1,131 @@
+,specification_point,term,definition
+0,1.1,acceleration,The rate of increase of velocity with time.
+1,1.2,air resistance (drag),The force opposing the motion of bodies moving through air.
+2,1.3,alpha particle,A type of nuclear radiation consisting of a helium nucleus ejected from an unstable nucleus.
+3,1.4,alternating current,A current that continually changes direction.
+4,1.5,ammeter,An instrument used to measure the size of current in a circuit.
+5,1.6,amplified,Increased in size or power.
+6,1.7,amp,The SI unit of electric current.
+7,1.8,analogue electrical signals,"Electrical signals, usually voltages, that have continuously variable values."
+8,1.9,angle of incidence,The angle measured between a ray of light arriving at a surface and the normal.
+9,2.0,angle of reflection,The angle measured between a ray of light reflected at a surface and the normal.
+10,2.1,balanced,"Equal in size but opposite in sign, therefore summing to zero (i.e. balanced forces, balanced charge.)"
+11,2.2,becquerel,The rate of disintegration of a radioactive substance; one disintegration per second.
+12,2.3,beta particle,A type of nuclear radiation consisting of a high speed electron emitted from an unstable nucleus.
+13,2.4,braking distance,The distance a vehicle travels before coming to rest after the brakes have been applied.
+14,2.5,Brownian motion,"The continuous, random, jerky motion of pollen grains observed by the botanist Robert Brown."
+15,2.6,cell mutation,"A change in the function of a living cell, sometimes caused by ionizing radiation."
+16,2.7,centre of gravity,The point in a body through which the whole of its weight appears to act.
+17,2.8,chain reaction,An escalating nuclear process in which each decay of an unstable nucleus triggers two or more unstable triggers two or more unstable nuclei to decay.
+18,2.9,circuit breakers,"The modern equivalent of fuses, designed to break the conducting path in a circuit when a set current is exceeded. They may be reset by the push of a switch once the fault causing them to operate is remedied."
+19,3.0,comet,A relatively small ice and rock body orbiting the sun with a very elongated (eccentric) orbit. Comets have a distinctive tail.
+20,3.1,conductors (electrical),Materials that allow electricity to pass through them easily. Most metals are good electrical conductors.
+21,3.2,contact force,The forces acting on bodies in contact.
+22,3.3,control rods,Control rods are used in a nuclear reactor to slow down the rate of nuclear fission or to stop the fission process completely.
+23,3.4,controlled nuclear fission,Involves the slow and useful release of energy in a nuclear reactor.
+24,3.5,critical angle,"Light arriving at a boundary between any material, in which light travels more slowly than in air, and air at an angle greater than the critical angle is totally internally reflected."
+25,3.6,current,The rate of flow of electric charge.
+26,3.7,density,The mass per unit volume of a substance.
+27,3.8,diffraction,The curving of waves as they pass the edges of objects.
+28,3.9,digital electrical signals,A digital signal has only two possible values. In computer and communication systems these values are 0 V and 5 V.
+29,4.0,displacement,Distance moved in a specific direction; a vector quantity.
+30,4.1,distance,Distance moved without considering direction; a scalar quantity.
+31,4.2,double insulated,Having an outer casing which is an electrical insulator; having no exposed metal casing.
+32,4.3,drag force,The force that opposes the motion of an object through a gas or liquid.
+33,4.4,earthed,"Having a very low resistance connection to the general mass of the earth, taken as always being a 0 V."
+34,4.5,efficiency,A measure of how effectively energy is transformed into a useful form.
+35,4.6,elastic,Able to return to its original size and shape after being deformed.
+36,4.7,elastic limit,This is taken as the point that a stretched spring or wire no longer obeys Hooke's Law. This is the limit of proportionality.
+37,4.8,electric charge,The property of particles that causes electric effects.
+38,4.9,electromagnetic (EM) waves,Waves that require no material medium in which to travel. They carry energy as variations in the magnetic and electric fields in space.
+39,5.0,electromagnetic spectrum,"The family of EM waves, ranging from radio waves to gamma and cosmic rays."
+40,5.1,electron,Extremely small particle carrying negative charge and making up the outer 'shell' or 'shells' of an atom.
+41,5.2,endoscope,A fibre optic device used to image the inside of living bodies as a diagnostic tool.
+42,5.3,energy,"Energy exists in many forms - heat, light etc; it is required to do work."
+43,5.4,evaporation,The process by which liquids change into gases.
+44,5.5,extension,In springs this is the increase in length that results from applying a force to stretch the spring.
+45,5.6,fissile,Referring to unstable materials; something that can readily be split or will split spontaneously.
+46,5.7,force,"A push or pull. When a force is applied to a body it will cause a change in the state of motion of the body, making it accelerate, decelerate or change direction. Forces can also change the shape of an object."
+47,5.8,fossil fuels,"Fuels formed from dead organic matter over millions of years; examples are gas, oil, and coal. These are non-renewable energy sources."
+48,5.9,free electrons,Electrons which are not bound to any particular atom in a solid. These are free to move and enable charge to move through a material forming an electric current.
+49,6.0,frequency,"The number of waves produced in one second. More generally, how many times something occurs per second."
+50,6.1,friction,The force that opposes motion between two surfaces.
+51,6.2,fuse,"A length of wire designed to melt when a specified current value is exceeded, thus breaking the circuit."
+52,6.3,galaxy,A group of many billions of stars rotating around a common centre.
+53,6.4,gamma rays,Highly penetrating electromagnetic radiation produced when an unstable atom disintegrates.
+54,6.5,geothermal energy,Heat energy produced by nuclear processes in the earth's core.
+55,6.6,gradient,The slope of a graph line measured as the rate of increase of the y-axis variable with respect to the x-axis variable.
+56,6.7,gravitational field strength,The force in newtons exerted per kilogram of mass by gravity. At the Earth's surface this is approximately 10N/kg.
+57,6.8,half-life,The time taken for half of the atoms in a sample of radioactive material to decay (disintegrate).
+58,6.9,hard magnetic materials,Materials that retain their magnetism well.
+59,7.0,hydroelectric power,Power produced using the potential energy of water stored in reservoirs in mountainous regions.
+60,7.1,hydroelectricity,Electricity produced by generators using hydroelectric power.
+61,7.2,inelastic,Materials that are unable to return to their original shape after deformation by a force.
+62,7.3,infrared,A part of the EM spectrum. The radiation emitted by hot objects.
+63,7.4,insulators (electrical),Materials that electricity cannot pass through.
+64,7.5,joule,The SI unit of energy. 1 joule is the amount of work done (energy transferred) when a force of 1 newton is applied through a distance of 1 metre.
+65,7.6,Kelvin temperature scale,The scale of temperature with zero set at the lowest possible temperature that can be achieved: absolute zero. This is -273¡ on the Celsius scale.
+66,7.7,light waves,A part of the EM spectrum that can be detected by the human eye.
+67,7.8,longitudinal waves,Waves in which the particles of the medium move backwards and forwards along the same line as the direction of transfer of energy.
+68,7.9,loudness,The power or strength of a sound. Loudness depends on the amplitude of the vibrations of the sound wave.
+69,8.0,magnetic,Possessing the ability to attract iron and its compounds.
+70,8.1,mechanical waves,Waves that require a material medium through which energy may be transferred.
+71,8.2,microwaves,A part of the EM spectrum. Used to directly heat water in telecommunication systems.
+72,8.3,moderator,A material used in nuclear reactors to produce 'slow' neutrons needed to trigger nuclear fission. Graphite and heavy water are typical moderators.
+73,8.4,moons,Natural satellites held in orbits around planets by the force of gravity.
+74,8.5,Motor Rule,The rule devised by Fleming to predict the direction of the force produced on a wire when it carries current in a magnetic field (provided the direction of current is perpendicular to the magnetic field).
+75,8.6,negative electric charge,The type of charge possessed by the electron.
+76,8.7,neutral,Having no overall electric charge. Neutrons are electrically neutral because there is a balance between the number of negative charges on electrons and the number of positive charges on the protons which make up part of the nucleus.
+77,8.8,neutron,Uncharged particle found in the nucleus of atoms.
+78,8.9,normal,"Perpendicular to, as in the normal drawn as a construction line."
+79,9.0,normal reaction,A contact force acting at right angles to a surface.
+80,9.1,ohm (½),Unit of resistance; the resistance of a conductor that passes a current of 1 amp when a voltage of 1 volt is applied across it.
+81,9.2,optical fibre,A thin glass tube designed to carry information in the form of light through total internal reflection.
+82,9.3,parallel circuit,A circuit with two or more conducting paths between any two points in the circuit.
+83,9.4,parent nuclide,An unstable nucleus that decays and splits into two or more lighter nuclei. The lighter nuclei are called daughter nuclides.
+84,9.5,partially elastic,Description of a collision in which kinetic energy is not conserved after the colliding bodies have separated.
+85,9.6,period,The time taken for one complete cycle of an oscillation or wave.
+86,9.7,pitch,How high a musical note is. This is related to the frequency of the sound - the higher the frequency the higher the pitch.
+87,9.8,planets,Massive objects held in regular orbit around a star by the force of gravity.
+88,9.9,positive electric charge,The type of charge possessed by the proton.
+89,10.0,power,The rate of transfer or conversion of energy.
+90,10.1,pressure,Force acting per unit area.
+91,10.2,proton,A positively charged particle found in the nucleus of an atom.
+92,10.3,radio waves,A part of the EM spectrum. Used in communication and radio and TV transmission.
+93,10.4,randomly,Unpredictably.
+94,10.5,reaction time,The time taken until there is a conscious response in humans to some event or stimulus.
+95,10.6,resistance,A measure of how difficult it is for current to pass through a part of a circuit. Measured in ohms.
+96,10.7,resultant force,The net force acting on a body when two or more forces are unbalanced.
+97,10.8,Sankey diagrams,Diagrams to represent the relative size of energy conversions that take place in a process or system.
+98,10.9,satellites,Man-made objects held in orbit around a planet by the force of gravity.
+99,1.0,scalar,"A quantity with magnitude (size) but no specific direction. Examples: energy, mass."
+100,1.1,second,The base unit of time measurement.
+101,1.2,series circuit,A circuit with only one path for an electric current to flow.
+102,1.3,soft magnetic materials,Materials that are easy to magnetize and demagnetize.
+103,1.4,solar power,Power obtained from the energy transferred by the EM waves from the Sun.
+104,1.5,sound waves,"Longitudinal waves in gases, liquids and solids with frequencies in the range 20 Hz to 20 kHz."
+105,1.6,speed,Distance travelled per unit time.
+106,1.7,star,"Huge nuclear fission explosions releasing vast amounts of energy as light, heat, and other forms of EM radiation."
+107,1.8,tension,The force in stretched materials.
+108,1.9,thermal radiation,"Heat radiation. EM waves with frequencies in the infrared range, lower than the red end of the visible spectrum."
+109,2.0,thinking distance,The travelled by a moving vehicle in the time that it takes for the driver to react to an emergency before applying the brakes.
+110,2.1,tidal power and wave energy,Power obtained from the rise and fall of the oceans due to tidal motion and from the waves which result from tidal and wind action on the oceans.
+111,2.2,transformers,Electromagnetic devices used to increase or decrease the size of alternating voltage electricity supplies.
+112,2.3,transverse waves,"Waves in which the particles of the medium move at right angles to the direction of transfer of energy. Although EM waves do not require a material medium in which to travel, these are also transverse waves."
+113,2.4,ultraviolet,The part of the EM spectrum with frequencies greater than the blue end of the visible spectrum.
+114,2.5,unbalanced,Not adding up to zero (i.e. unbalanced forces have a non-zero resultant or sum)
+115,2.6,uncontrolled nuclear fission,"Involves the release of vast amounts of energy in a very short time, in short an explosion."
+116,2.7,universe,The system comprising every galaxy.
+117,2.8,upthrust,The upward force that acts on an object because it has displaced a volume of liquid or gas.
+118,2.9,vector,"A quantity that has both size (magnitude) and direction. Examples: velocity, acceleration, and force."
+119,3.0,velocity,The rate of increase of distance travelled in a specified direction with time.
+120,3.1,virtual image,The image formed in mirrors that appears to be behind the mirror. Any image that is not the actual source of real rays of light.
+121,3.2,viscous drag,The force that opposes the motion of an object through a liquid.
+122,3.3,visible light,EM waves in the range of frequencies that can be detected by the human eye.
+123,3.4,voltage,"A measure of the energy converted per unit charge passing through a component. also a measure of the amount of energy transferred to electrical form per unit by an electrical power supply, like a battery."
+124,3.5,voltmeter,A measuring instrument for measuring the voltage between two points in a circuit.
+125,3.6,volt,The unit of voltage. 1 volt is equal to 1 joule of energy per coulomb of charge passed through a component.
+126,3.7,watt,The unit of power equal to a rate of transfer of energy of 1 joule per second.
+127,3.8,weight,The force acting on a body due to its presence in a gravitational field.
+128,3.9,wind power,Power obtained from the kinetic energy of moving air.
+129,4.0,work,The transfer of energy to a body. Mechanical work is the transfer of energy which occurs when a force is applied through a distance in the direction of the force.

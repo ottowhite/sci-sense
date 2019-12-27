@@ -1,0 +1,79 @@
+,specification_point,diagram_name,question,a,b,c,d
+0,1.01,,SI unit for force is,Newton,Kilograms,Joules ,acceleration
+1,1.03,1.03 Distance-Time Graph.PNG,An object is projected vertically upward from point A. It rises to the highest point and then falls back to point A again. Which of the graphs shows the variation of the displacement of the object with time?,,,,
+2,1.04,,A train travels 45 km in 45 mins. What is its average speed?,17 m/s,1 m/s,10 m/s,2000 m/s
+3,1.06,,A girl running decreases her speed from 7 m/s to 1 m/s in 3 seconds. What is the average acceleration of the girl?,-2.00 m/s2,+2.00 m/s2,-2.67 m/s2,-2.33 m/s2
+4,1.07,1.07 Velocity-Time Graph.PNG,"The diagram shows a velocity-time graph plotted for a car. During the first 2.5 s, the car must be",accelerating,climbing a hill,stationary,travelling at constant velocity
+5,1.08,,An object travels along a straight line. The graph above shows how its velocity (v) varies with time (t). Which of the following statements about the motion of the object are correct? 1 The acceleration of the object in the first 5 seconds is 2 m/s2. 2 The object changes direction at t = 15 s. 3 The total distance travelled by the object is 75 m.,1 and 2 only,1 and 3 only,2 and 3 only ,"1,2 and 3 "
+6,1.09,1.09 Distance travelled from Velocity-Time Graph.PNG,The graph shows how velocity varies with time for an object. What is the total distance travelled in 4 s?,60 m ,40 m ,20 m,80 m
+7,1.1,,"A car accelerates from rest at 3.5 m/s2, until reaching a speed of 252km/h. How far did the car travel in metres?",700 m             ,9100 m,1400 m            ,2000 m
+8,1.11,,An object is moved from the Earth to the Moon. Which of the following will change? 1 The mass of the object. 2 The weight of the object. 3 The time taken for the object to fall through 1 m. ,2 and 3 only ,1 and 3 only,1 and 2 only,"1,2 and 3 "
+9,1.13,,Which of these pairs contains a scalar and a vector?,energy and force,speed and mass,force and velocity,energy and volume
+10,1.13,,Which of these pairs are both vector quantities?,force and accelation,velocity and energy,acceleration and speed,weight and mass
+11,1.13,,Which of these pairs are both scalar quantities?,speed and mass,energy and force,temperature and velocity,volume and weight
+12,1.14,,Which of these statements is correct?,force has magnitude and direction,speed is a vector,temperature has a direction,acceleration is a scalar
+13,1.15,,"If two forces of 20 N towards north and 12 N towards south are acting on an object, the resultant force will be..",8 N towards north,20 N towards north,32 N towards south,32 N toward north
+14,1.15,,A stationary box is pushed with a force of 20N but it does not move. What is the value of the frictional force acting on the box?,20 N,10 N,0 N,40 N
+15,1.15,1.15 Resultant Forces on a line.PNG,What is the resultant force in the diagram?,10 N downwards,0 N,20 N to the right,30 N overall
+16,1.16,,How can I reduce friction?,lubrication,heavier object,rougher surface ,push down on the object
+17,1.16,,"The maximum friction between a box and the table is 15N. I push the box across the table with a force of 20N, what is the friction?",15 N,10 N,0 N,20 N
+18,1.16,,What type of force opposes motion and releases thermal energy?,friction,tension,weight,resistance
+19,1.17,,A car of mass 1500 kg accelerates constantly from rest for 5 seconds reaching a final speed of 20 m/s. Find the net driving force acting on the car during acceleration.,6000 N,375 N,30000 N,600 N
+20,1.18,,An object is moved from the Earth to Jupiter. Which statement is true?,weight will increase,both mass and weight will change,mass and weight stay the same,mass will increase
+21,1.18,,A box full of bricks weighs 128 N on moon and has a mass of 80 kg. The gravitational pull of the moon is,1.6 N/kg,1.28 N/kg,50 N/kg,40 N/kg
+22,1.18,,"A person of mass 50 kg flies to the moon, what would his weight be on the moon (moon's gravity = 1.6 N/kg)",80 N,500 N,51.6 N,31.25 N
+23,1.18,,The surface gravity of a planet is about 20 N/kg. What would be the weight of an object of mass 500g at its surface?,10 N,1000 N,40 N ,25 N
+24,1.19,,A car travelling at 30 m/s has a stopping distance of 90 m. The thinking distance is 20 m. Calculate the braking distance of the car.,70 m,80 m,110 m,140 m
+25,1.2,,Which of these pairs both affect braking distance?,speed and road condition,speed and reaction time,mass and tiredness,mass and reaction time
+26,1.22,,What error should be avoided when measuring extension?,parallax error,vertical ruler,parallel viewing,stationary spring
+27,1.22,1.22 Extension of Springs.png,"Different weights are hung from a spring. The diagram shows the original length of the spring, and the lengths when different weights are added. The extension of the spring is directly proportional to the weight hung from it. What is the weight of W?",40 N ,35 N,30 N,45 N
+28,1.23,,At what point does Hooke’s law stop being obeyed?,limit of proportionality,elastic limit,limit of elasticity,plastic limit
+29,1.23,,Hooke's law states that…,force and extension are directly proportional,force and length are directly proportional,extension decreases with added force,"as force doubles, extension halves"
+30,1.24,,What will an elastic material do?,return to its original length,stretch a very long way,obey Hooke's law,compress in a linear way
+31,1.25,,A toy car has a mass of 500g and a momentum of 1.5 kg m/s. What speed is it travelling at?,3 m/s,0.75 m/s,0.003 m/s,0.33 m/s
+32,1.25,,The momentum and kinetic energy of a moving object are 8 kg m/s and 12 J respectively. What is the speed of the object?,3 m/s,2 m/s,4 m/s,5 m/s
+33,1.27,,Object A of mass 3 kg lying at rest on a smooth surface is hit by object B of mass 1 kg moving to the right with a speed 5 m/. After the collision A moves to the right with a speed of 2 m/s. How does B move after the collision?,B moves to the left with a speed of 1 m/s,B moves to the right with a speed of 1 m/s,B moves to the left with a speed of 2 m/s,B moves to the left with a speed of 3 m/s
+34,1.28,,"In an accident, a car travelling at a speed of 20 m/s knocks against a wall. The driver of mass 60 kg is stopped by the airbag in 1.2 s. During the accident, what force is the driver subject to?",1000 N,1440 N,3.6 N,1200 N
+35,1.3,1.30 Moments.PNG,"The diagrams show three uniform bearms P,Q and R, each pivoted at its centre. The two forces acting on each beam are also shown. Which beams rotate clockwise?",Q and R only,P and R only ,P and Q only,"P, Q and R"
+36,2.02,,What is the safety device that limits the current flow in a plug,fuse,earth wire,insulation ,cable grip 
+37,2.02,,"A hair dryer has a case made of plastic. It only needs 2 wires for safe use, and does not need an earth wire. What are devices like this called?",double insulated,safety checked,current controlled,neutral devices
+38,2.04,,A circuit has a current of 50 mA and voltage of 10 V. Calculate the power output?,0.5 W,200 W,500 W,5 W
+39,2.04,,An electric bulb has a rating of 220 V and 40 W. Find the resistance of the bulb when it is working at its rated value.,1210 Ω,807 Ω,7.3 Ω,5.5 Ω
+40,2.05,,"A battery and a bulb form a closed circuit. The e.m.f. of the battery is 9 V, and a current of 2 A flows in the circuit. How much energy is supplied by the battery in 1 minute?",1080 J,120 J,540 J,18 J
+41,2.09,2.09 Current-Voltage Graphs.PNG,The diagrams show four current-voltage graphs. Which two graphs show the characteristics of an ohmic resistor and of a filament lamp?,X and Y ,W and Y,W and Z,X and Z
+42,2.1,,Which of the following statements concerning resistance are correct? 1 The resistance of an object is the voltage required to drive a current of 1 A through the object. 2 The unit of resistance is (Ω) which is equivalent to V/A. 3 The resistance of a metal wire is independent of the temperature of the wire. ,1 and 2 only,1 and 3 only,2 and 3 only ,"1,2 and 3 "
+43,2.1,,Which of these circuits will draw the largest current from a cell? Assuming all bulbs are identical.,2 bulbs in parallel,2 bulbs in series,3 bulbs in series,1 bulb on its own 
+44,2.13,,A thermistor has a voltage of 13.2 V and a current of 2.60 mA. Calculate the resistance of the thermistor?,5000 Ω,34 Ω,5 Ω,5x10-6 Ω
+45,2.14,,Which of the following statements about an electric current are correct? 1 An electric current is a flow of charges 2 An electric current in a metal is a flow of negatively charged particles. 3 The unit of electric current is coulomb.,1 and 2 only,1 and 3 only,2 and 3 only ,"1,2 and 3 "
+46,2.15,,"When a filament lamp is switched on, it draws a current of 50 mA. How much charge passes through the filament lamp in 1 hour?",180 C,50 C,3 C,1.8x10+5 C
+47,2.18,2.18 Voltages in parallel circuits.PNG,The circuit diagram shows a 4.0 Ω resistor and an 8.0 Ω resistor connected to a 6.0 V battery. What is the potential difference (p.d.) across the 4.0 Ω resistor?,6.0 V,2.0 V,4.0 V,0.5 V
+48,2.19,2.19 Resistors in Series.PNG,What is the reading on the ammeter in the diagram?,3 A,48 A,6 A,0.33 A
+49,2.2,,Which of the following statements about voltage are correct? 1 Voltage is the energy transferred per unit charge passed. 2 The volt is a joule per coulomb. 3 The voltage across two components connected in parallel is the same. ,"1,2 and 3 ",1 and 3 only,2 and 3 only ,1 and 2 only
+50,2.21,,What is the charge when 10 kJ of energy is transferred through a lamp with 10 V applied across it?,1000 C,100 C,1 C,100000 C
+51,2.22,,Which of these is not a conductor of electricity?,plastic,steel,sea water,graphite
+52,2.22,,Static electricity can be produced by friction on?,insulators only ,conductors only,conductors and insulators ,neither conductors or insulators
+53,2.24,2.24 Charged rod and plate.PNG,A positively charged rod is brought close to one end of a neutal metallic plate. What type of charge is induced on the closest side of the plate?,negative,positive,neutral ,it depends of the separation between the rod and the plate
+54,2.27,,Sparks can be produced by friction due to static electricity. Which of these best describes a reasonable potential hazard of static electricity?,igniting fuel at a petrol station,force produced by spark can knock a person over,possible fatal shock from the spark,spark can produce a surge in kitchen appliances and destroy them
+55,2.28,,Static electricity can be problem but which of these applications uses static electricity?,ink jet printers,radiotherapy treatments,mobile phones,loudspeakers
+56,3.02,,Longitudinal waves vibrate…,parallel to the direction of energy transfer,perpendicular to the direction of energy transfer,sideways alongside the wavelength,up and down alongside the amplitude
+57,3.03,3.03 Amplitude and time period of a wave.png,Which line correctly gives the values shown on the diagram?,amplitude = 15cm time period 20s,amplitude = 15cm wavelength 20m,amplitude = 30cm wavelength 10m,amplitude = 30cm time period 10s
+58,3.03,,Definition of amplitude is…,the maximum displacement from the midpoint,the time it takes for one wave to pass,the number of waves passing a point in one second,the length of one complete wave
+59,3.03,,Definition of time period is…,the time it takes for one wave to pass,the number of waves passing a point in one second,the maximum displacement from the midpoint,the length of one complete wave
+60,3.04,,Electromagnetic waves carry,energy,negative charge,positive charge,both positive and negative charge
+61,3.05,,What is the wavelength if frequency is 34kHz and wavespeed is 1600m/s?,0.047 m,54400 m,47 m,21.25 m
+62,3.05,,"If frequency is 12MHz and wavelength is 4mm, the wave speed is…",48000 m/s,3 m/s,48 m/s,4x10^9 m/s
+63,3.06,,What is the speed of a wave with time period 2s and wavelength 4m?,2 m/s,8 m/s,1 m/s,0.5 m/s
+64,3.06,,"If the time period is 50μs, what is the frequency?",20000 Hz,20 Hz,0.02 Hz,0.00002 Hz
+65,3.08,,What is the Doppler effect?,the change in the observed wavelength and frequency of a source which is moving relative to an observer ,the change in the observed wavelength and frequency of a source which is stationary relative to an observer ,the change only in the observed wavelength of a source which is stationary relative to an observer ,the change only in the observed frequency of a source which is stationary relative to an observer 
+66,3.1,,Electromagnetic spectrum comprises,transverse waves,longitudinal waves,both transverse and longitudinal,latitudinal waves
+67,3.1,,Electromagnetic waves travel,with medium and without medium,with medium,without medium,in a disturbed path
+68,3.11,,Which has the longest wavelength?,radio waves,infrared,ultraviolet,gamma rays
+69,3.11,,Electromagnetic wave with lowest frequency is,radio waves,infrared,ultraviolet,gamma rays
+70,3.12,,Why are x-rays used for medical imaging?,bones absorb x rays ,bones reflect x rays,bones transmit x rays,bones refract x rays
+71,3.12,,Which part of the EM spectrum is used for communications via satellites?,microwaves,radio,IR,visible light
+72,3.13,,Which shows the correct order from most dangerous to least dangerous?,"gamma, visible, radio","gamma, radio, visible","radio, visible, gamma","radio, gamma, visible"
+73,3.13,,Which three parts of the EM spectrum can cause cancer?,"gamma, x rays, UV","radio, microwaves, IR","microwaves, x rays, gamma","UV, x rays, visible"
+74,3.14,,Examples of transverse waves are..,"radio, water and light","ultrasound, microwaves and seismic","sound, light and water",sound and ultrasound
+75,3.17,3.17 Investigating refraction of light with a rectangular block.PNG,"A ray of light is shone on a rectangular glass block as shown. Identify A, B and C.",A - angle of incidence. B - angle of refraction. C - Normal.,A - angle of refraction. B - angle of incidence. C - Normal.,A - Normal. B - angle of refraction. C - angle of incidence,A - angle of incidence. B - angle of reflection. C - Normal.
+76,3.23,,Examples of longitudinal waves are…,sound and ultrasound,"ultrasound, microwaves and seismic","radio, water and light","sound, light and water"
+77,3.28,,"The higher the frequency of a sound wave, the…",higher the pitch,larger the amplitude,quieter the sound,longer the wavelength
