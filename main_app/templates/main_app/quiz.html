@@ -206,7 +206,7 @@
 
             margin-right: auto;
             margin-left: auto;
-            height: 95%;
+            object-fit: contain;
 
             border-radius: 10px;
         }
@@ -373,6 +373,7 @@
 {% endblock %}
 
 {% block content %}
+    {% load static %}
     <div id="context-wrapper">
         <!-- The question queryset is iterated over, creating all question context-wrapper elements -->
         {% for question in question_data %}
@@ -382,7 +383,7 @@
                     {{ question.question }}
                 </p>
 
-                <img class='question-image q{{ forloop.counter }} diagram' src='https://www.indiabix.com/_files/images/engineering-mechanics/pg2-9.png'>
+                <img class='question-image q{{ forloop.counter }} diagram' src='{% static "main_app/" %}{{question.diagram_name}}'>
             {% else %}
                 <p class="question-paragraph q{{ forloop.counter }}">
                     <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
