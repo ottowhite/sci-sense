@@ -148,7 +148,7 @@ class QuizView(LoginRequiredTemplateView):
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
+            'question_data': Question.objects.filter(specification_point__range=(start, end)).order_by("?")[:maximum],
             'title': 'Do quiz'
         }
 
@@ -211,9 +211,9 @@ class TermsView(LoginRequiredTemplateView):
         (start, end) = (end, start) if start > end else (start, end)
 
         if in_order == 'True':
-            terms = Term.objects.filter(spec_point__range=(start, end))
+            terms = Term.objects.filter(specification_point__range=(start, end))
         else:
-            terms = Term.objects.filter(spec_point__range=(start, end)).order_by('?')
+            terms = Term.objects.filter(specification_point__range=(start, end)).order_by('?')
         
         args = {
             'terms': terms,

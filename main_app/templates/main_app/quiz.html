@@ -278,9 +278,9 @@
             answers = {
                 {% for question in question_data %}
                     {{ forloop.counter }}: {
-                        "id": {{ question.id }},
+                        "id": {{ question.question_id }},
                         "student_answer": null,
-                        "answer": "{{ question.answer }}",
+                        "answer": "{{ question.a }}",
                     },
                 {% endfor %}
             };
@@ -376,16 +376,16 @@
     <div id="context-wrapper">
         <!-- The question queryset is iterated over, creating all question context-wrapper elements -->
         {% for question in question_data %}
-            {% if question.diagram %}
+            {% if question.diagram_name is not None %}
                 <p class="question-paragraph q{{ forloop.counter }} diagram">
-                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.spec_point }}]</strong>
+                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
                 </p>
 
                 <img class='question-image q{{ forloop.counter }} diagram' src='https://www.indiabix.com/_files/images/engineering-mechanics/pg2-9.png'>
             {% else %}
                 <p class="question-paragraph q{{ forloop.counter }}">
-                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.spec_point }}]</strong>
+                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
                 </p>
             {% endif %}
@@ -394,7 +394,7 @@
 
     <!-- The question queryset is iterated over, creating all divs and elements for all questions -->
     {% for question in question_data %}
-        {% if question.diagram %}
+        {% if question.diagram_name is not None %}
             <div class="answer-box a1-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
             <div class="answer-box a2-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
             <div class="answer-box a3-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
