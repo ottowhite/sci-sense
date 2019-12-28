@@ -376,7 +376,7 @@
     <div id="context-wrapper">
         <!-- The question queryset is iterated over, creating all question context-wrapper elements -->
         {% for question in question_data %}
-            {% if question.diagram_name is not None %}
+            {% ifnotequal question.diagram_name "nan" %}
                 <p class="question-paragraph q{{ forloop.counter }} diagram">
                     <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
@@ -388,13 +388,13 @@
                     <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
                 </p>
-            {% endif %}
+            {% endifnotequal %}
         {% endfor %}
     </div>
 
     <!-- The question queryset is iterated over, creating all divs and elements for all questions -->
     {% for question in question_data %}
-        {% if question.diagram_name is not None %}
+        {% ifnotequal question.diagram_name "nan" %}
             <div class="answer-box a1-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
             <div class="answer-box a2-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
             <div class="answer-box a3-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
@@ -404,7 +404,7 @@
             <div class="answer-box a2-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
             <div class="answer-box a3-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
             <div class="answer-box a4-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
-        {% endif %}
+        {% endifnotequal %}
     {% endfor %}
 
 
