@@ -1,20 +1,17 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .models import AppUser
 from .models import Question
 from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import Q, ObjectDoesNotExist
 from urllib.parse import urlencode
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-# querying the user model
-try:
-    user_data = AppUser.objects.get(Q(username="ottowhite") & Q(password="password"))
-except ObjectDoesNotExist:
-    user_data = None
+class LoginRequiredTemplateView(LoginRequiredMixin, TemplateView):
+    login_url = '/login/'
 
 
-class HomeView(TemplateView):
+class HomeView(LoginRequiredTemplateView):
     template_name = 'main_app/home.html'
 
 
@@ -23,7 +20,6 @@ class HomeView(TemplateView):
         
         # the args are the different pieces of session/page data that the page will adapt to
         args = {
-            'user_data': user_data,
             'title': 'Home'
         }
 
@@ -31,7 +27,7 @@ class HomeView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class GenerateQuizView(TemplateView):
+class GenerateQuizView(LoginRequiredTemplateView):
     template_name = 'main_app/generate_quiz.html'
 
     # EDGE CASE: 1 QUESTION QUIZ RESULTS IN SYNTAX ERROR
@@ -44,7 +40,6 @@ class GenerateQuizView(TemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Generate quiz'
         }
@@ -61,7 +56,6 @@ class GenerateQuizView(TemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Generate quiz'
         }
@@ -83,7 +77,7 @@ class GenerateQuizView(TemplateView):
             return redirect(f'{base_url}?{query_string}')
 
 
-class GenerateTermsView(TemplateView):
+class GenerateTermsView(LoginRequiredTemplateView):
     template_name = 'main_app/generate_terms.html'
 
 
@@ -95,7 +89,6 @@ class GenerateTermsView(TemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Display terms and definitions'
         }
@@ -112,7 +105,6 @@ class GenerateTermsView(TemplateView):
 
         # defining some arguments to be interacted with on the page
         args = {
-            'user_data': user_data,
             'form': form,
             'title': 'Terms and Definitions'
         }
@@ -134,7 +126,7 @@ class GenerateTermsView(TemplateView):
             return redirect(f'{base_url}?{query_string}')
 
 
-class QuizView(TemplateView):
+class QuizView(LoginRequiredTemplateView):
     template_name = 'main_app/quiz.html'
 
 
@@ -156,7 +148,6 @@ class QuizView(TemplateView):
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
             'title': 'Do quiz'
         }
@@ -183,7 +174,6 @@ class QuizView(TemplateView):
 
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'question_data': Question.objects.filter(spec_point__range=(start, end)).order_by("?")[:maximum],
             'title': 'Do quiz'
         }
@@ -203,7 +193,7 @@ class QuizView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class TermsView(TemplateView):
+class TermsView(LoginRequiredTemplateView):
     template_name = 'main_app/terms.html'
 
     
@@ -226,7 +216,6 @@ class TermsView(TemplateView):
             terms = Term.objects.filter(spec_point__range=(start, end)).order_by('?')
         
         args = {
-            'user_data': user_data,
             'terms': terms,
             'title': 'Terms and definitions'
         }
@@ -234,14 +223,13 @@ class TermsView(TemplateView):
         return render(request, self.template_name, args)
 
 
-class ReviewQuizView(TemplateView):
+class ReviewQuizView(LoginRequiredTemplateView):
     template_name = 'main_app/review_quiz.html'
 
 
     def get(self, request):
         # also adds a randomly ordered queryset of given length within the given range, containing questions
         args = {
-            'user_data': user_data,
             'title': 'Do quiz'
         }
 

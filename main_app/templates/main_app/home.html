@@ -13,6 +13,13 @@
 <!-- This block will be overwritten by the unique code of each page -->
 {% block content %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class='alert alert-{{ message.tags }}'>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+
     {% if user_data.is_teacher %}
         <!-- This content is displayed if the user is a teacher -->
         <h1>Welcome to the teacher homepage</h1>

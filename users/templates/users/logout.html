@@ -1,0 +1,31 @@
+{% extends 'main_app/logged_out.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Sci.Sense - Logged out</title>
+{% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+
+<style id='login-css'>
+    #content {
+        padding: 3em;
+        margin-bottom: 6em;
+        
+        justify-self: center;
+        align-self: center;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<h1>You have been logged out</h1>
+
+<p>
+    <a href="{% url 'login' %}">Log back in</a>
+</p>
+
+{% endblock content %}

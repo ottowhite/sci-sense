@@ -1,0 +1,78 @@
+<!-- Allows the page to override blocks defined in the base page -->
+{% extends "main_app/base.html" %}
+
+<!-- Appending a style to the head of the document through calling super inside the block override -->
+{% block stylesheets %}
+    {{ block.super }}
+    <style id="logged-in-css">
+        /* This CSS is only necessary once a user has logged in
+        as it is responsible for styling the navigation bar and
+        empty content block */
+
+        /* Overall wrapper CSS */
+        #wrapper {
+            position: relative;
+            
+            height: 100%;
+        }
+
+        /* navbar CSS */
+        #top-bar-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 9fr;
+
+            
+            padding-top: 0.7em;
+            padding-right: 3em;
+            padding-left: 3em;
+            padding-bottom: 0.35em;
+        }
+
+        #logo-image {
+            height: 65px;
+            justify-self: start;
+        }
+
+        /* Content CSS */
+        .content-wrapper {
+            display: grid;
+            
+            padding-right: 3em;
+            padding-left: 3em;
+            padding-top: 0.35em;
+
+            height: 85%;
+        }
+
+        .box {
+            border-radius: 60px;
+            padding: 1.4em;
+            color: var(--primary-text);
+            background-color: var(--primary-content);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div id="wrapper">
+        <!-- Wrapper for all navigation/top-bar related elements for all  -->
+        <div id="top-bar-wrapper">
+
+            <!-- Logo image displayed to the left of navigation bar -->
+            <img id="logo-image" src="https://ichef.bbci.co.uk/childrens-responsive-ichef-live/r/320/1x/cbbc/science-logo-final_alt7.png">
+            
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="box" id="content">
+                {% block content %} 
+                    <!-- This block is overwritten by the actual page contents -->
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+    
+    
+
+{% endblock body %}

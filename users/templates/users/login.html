@@ -1,0 +1,45 @@
+{% extends 'main_app/logged_out.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Sci.Sense - Log In</title>
+{% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+
+<style id='login-css'>
+    #content {
+        padding: 3em;
+        margin-bottom: 6em;
+        width: 500px;
+        
+        justify-self: center;
+        align-self: center;
+    }
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div class='alert alert-{{ message.tags }}'>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<h1>Login</h1>
+
+<form method='POST'>
+    {% csrf_token %}
+
+    {{ form|crispy }}
+    <button value='submit'>Log in</button>
+</form>
+
+<p>
+    Need an account? <a href="{% url 'register' %}">Sign up</a>
+</p>
+
+{% endblock content %}

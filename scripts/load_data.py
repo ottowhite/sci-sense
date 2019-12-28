@@ -21,7 +21,7 @@ def import_questions(csv_path):
         question_list.append(Question(spec_point=spec_point, question=question, diagram=diagram, a=a, b=b, c=c, d=d, answer=answer))
 
     ipdb.set_trace()
-    Question.objects.bulk_create(question_list)
+    # Question.objects.bulk_create(question_list)
 
 def import_terms_temp():
     
@@ -56,7 +56,11 @@ def import_terms(csv_path):
     for x in range(len(terms.values)):
         term_list.append(Term(spec_point=terms.values[x][0], term=terms.values[x][1], definition=terms.values[x][2]))
 
+    terms = terms.rename(columns={'spec_point':'specification_point'})
+
     ipdb.set_trace()
-    Term.objects.bulk_create(term_list)
+    # Term.objects.bulk_create(term_list)
+
+import_terms('scripts/terms.csv')
 
 
