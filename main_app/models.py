@@ -30,8 +30,8 @@ class SpecReference(models.Model):
 class Answer(models.Model):
 
     answer_id       = models.AutoField(primary_key=True)
-    user            = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
-    question        = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user            = models.ForeignKey(users_models.User, on_delete=models.CASCADE) # Foreign key referencing User table
+    question        = models.ForeignKey(Question, on_delete=models.CASCADE) # models.CASCADE deletes this entity when referenced entitity is deleted
     date_answered   = models.DateTimeField(auto_now=True)
     is_correct      = models.BooleanField()
 

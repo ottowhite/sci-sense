@@ -51,7 +51,7 @@ class User(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
 
     # required fields
-    username            = models.CharField(unique=True, max_length=60)
+    username            = models.CharField(unique=False, max_length=60)
     date_joined         = models.DateTimeField(auto_now_add=True)
     last_login          = models.DateTimeField(auto_now=True)
     is_active           = models.BooleanField(default=True)
@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'date_of_birth']
 
-    objects = UserManager() # referencing the User manager created
+    objects = UserManager() # linking the User manager created
 
     def __str__(self):
         return self.email
