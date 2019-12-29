@@ -6,6 +6,7 @@ from django.db.models import Q, ObjectDoesNotExist
 from urllib.parse import urlencode
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+import json
 
 class LoginRequiredTemplateView(LoginRequiredMixin, TemplateView):
     login_url = '/login/'
@@ -185,9 +186,8 @@ class QuizView(LoginRequiredTemplateView):
 
         # ----------------------------------------------------------------------------------------------
 
-        answers = request.POST['answers']
-        answers = answers.replace('null', 'None')
-        answers = eval(answers)
+        answers = json.loads(request.POST['answers'])
+
 
         return render(request, self.template_name, args)
 

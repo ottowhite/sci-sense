@@ -10,7 +10,8 @@ def import_questions(path):
 
     for x in range(len(questions)):
         specification_point, diagram_name, question, a, b, c, d = questions.iloc[x].values
-
+        
+        '''
         question_list.append(Question(
             specification_point=specification_point, 
             question=question, 
@@ -19,6 +20,7 @@ def import_questions(path):
             b=b, 
             c=c, 
             d=d))
+        '''
         
 
     Question.objects.bulk_create(question_list)
