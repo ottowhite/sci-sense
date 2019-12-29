@@ -9,10 +9,11 @@ class Question(models.Model):
     specification_point     = models.FloatField()
     question                = models.TextField()
     diagram_name            = models.TextField(default='')
-    a                       = models.CharField(max_length=50) # which is also the correct answer
+    a                       = models.CharField(max_length=50)
     b                       = models.CharField(max_length=50)
     c                       = models.CharField(max_length=50)
     d                       = models.CharField(max_length=50)
+    correct_answer          = models.CharField(max_length=1, default='')
 
 class Term(models.Model):
 

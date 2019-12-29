@@ -21,7 +21,8 @@ class UserManager(BaseUserManager):
             username        = username,
             first_name      = first_name,
             last_name       = last_name,
-            date_of_birth   = date_of_birth
+            date_of_birth   = date_of_birth,
+            last_quiz       = None
         )
 
         user.set_password(password)
@@ -36,7 +37,8 @@ class UserManager(BaseUserManager):
             password        = password,
             first_name      = first_name,
             last_name       = last_name,
-            date_of_birth   = date_of_birth
+            date_of_birth   = date_of_birth,
+            last_quiz       = None
         )
 
         user.is_staff = True
@@ -64,6 +66,7 @@ class User(AbstractBaseUser):
     first_name          = models.CharField(max_length=60)
     last_name           = models.CharField(max_length=60)
     date_of_birth       = models.DateField()
+    last_quiz           = models.TextField()
 
 
 

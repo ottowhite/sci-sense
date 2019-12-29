@@ -186,8 +186,11 @@ class QuizView(LoginRequiredTemplateView):
 
         # ----------------------------------------------------------------------------------------------
 
+        # temporarily store the answers in a User variable in the database        
+        current_user = request.user
         answers = json.loads(request.POST['answers'])
-
+        current_user.last_quiz = answers
+        current_user.save()
 
         return render(request, self.template_name, args)
 
