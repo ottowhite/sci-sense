@@ -222,6 +222,8 @@
     <script id="quiz-js">
         var default_colour;
         var hover_colour;
+        var correct_colour;
+        var incorrect_colour;
         
         var answers;
         var number_of_quesions;
@@ -230,13 +232,9 @@
             // get global CSS variables for relevant colours
             default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
             hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
-            
+            correct_colour = "#5d9451";
+            incorrect_colour = "#ED8A68";
             number_of_quesions = {{ question_data.count }};
-            
-            // creates an answers object where each question has its own attribute
-            // each question attribute is another object of the information for each question
-
-            answers = []
 
             // answers contains, question number, question id, and student answer
             last_quiz = JSON.parse('{{ user.last_quiz }}'.replace(/None/g, 'null'))
@@ -244,7 +242,38 @@
             {% for question in question_data %}
                 last_quiz[{{ forloop.counter0 }}].push('{{ question.correct_answer }}')
             {% endfor %}
+
+            for (var i = 0; i < last_quiz.length; i++) {
+                // convert answer letters into numbers
+                last_quiz[i][3] = last_quiz[i][3].charCodeAt(0) - 96
+            }
+
             
+            select_question(1); // always select the first question when the quiz starts
+            set_colours();
+        }
+
+        function set_colours() {
+            for (var question_index = 0; question_index < last_quiz.length; question_index++) {
+                // setting the colours of the answer boxes
+                if (last_quiz[question_index][2] != null) {
+                    student_answer_class_name = "q" + (question_index+1).toString() + " a" + last_quiz[question_index][2] + "-box"
+                    student_answer_box = document.getElementsByClassName(student_answer_class_name)[0]
+                    student_answer_box.style.backgroundColor = incorrect_colour
+                }
+
+                correct_answer_class_name = "q" + (question_index+1).toString() + " a" + last_quiz[question_index][3] + "-box"
+                correct_answer_box = document.getElementsByClassName(correct_answer_class_name)[0]
+                correct_answer_box.style.backgroundColor = correct_colour
+
+                // setting the colours of the question numbers
+                if (last_quiz[question_index][2] == last_quiz[question_index][3]) {
+                    document.getElementById("q" + (question_index+1).toString() + "-nav").style.backgroundColor = correct_colour
+                } else {
+                    document.getElementById("q" + (question_index+1).toString() + "-nav").style.backgroundColor = incorrect_colour
+                }
+
+            }
         }
 
         function select_question(question_number) {
@@ -265,12 +294,6 @@
                 question_elements[i].style.display = "none";
             }
 
-            question_numbers = document.getElementsByClassName("question-number")
-            for (i = 0; i < question_numbers.length; i++) {
-                // set all question number divs to have default colour
-                question_numbers[i].style.backgroundColor = default_colour;
-            }
-
             // collect all elements relating to a single question, and display them with according properties
             single_question_elements = document.getElementsByClassName("q" + current_question)
             for (i = 0; i < single_question_elements.length; i++) {
@@ -281,10 +304,15 @@
                 }
             }
             
+            question_numbers = document.getElementsByClassName("question-number")
+            for (i = 0; i < question_numbers.length; i++) {
+                // set all question number divs to have default colour
+                question_numbers[i].style.border = 'none';
+            }
+
             // darken the selected question
             current_question_div = document.getElementById("q" + current_question + "-nav")
-
-            current_question_div.style.backgroundColor = hover_colour;
+            current_question_div.style.border = 'thick solid grey';
             current_question_div.scrollIntoView();
         
         }
@@ -294,8 +322,6 @@
         }
 
         init()
-
-        select_question(1); // always select the first question when the quiz starts
         
     </script>
 {% endblock %}
@@ -349,9 +375,5 @@
         <div id="finished-button" onclick="finish_review()"><span id="finished-span">Finish</span></div>
         <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>  
         <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
-        <form id='hidden_form' method="POST">
-            {% csrf_token %}
-            <input type="hidden" id="hidden_field" name="answers">
-        </form>
     </div>
 {% endblock content %}
