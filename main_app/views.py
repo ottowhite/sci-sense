@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .models import Question
+from main_app.models import Question
 from main_app.forms import GenerateQuizForm, GenerateTermsForm
-from django.db.models import Q, ObjectDoesNotExist
+from django.db.models import ObjectDoesNotExist, Case, When
 from urllib.parse import urlencode
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -186,13 +186,13 @@ class QuizView(LoginRequiredTemplateView):
 
         # ----------------------------------------------------------------------------------------------
 
-        # temporarily store the answers in a User variable in the database        
+        # temporarily store the answers in a User variable in the database  MAKE ME BETTER      
         current_user = request.user
         answers = json.loads(request.POST['answers'])
         current_user.last_quiz = answers
         current_user.save()
 
-        return render(request, self.template_name, args)
+        return redirect('main-review-quiz')
 
 
 class TermsView(LoginRequiredTemplateView):
@@ -231,8 +231,18 @@ class ReviewQuizView(LoginRequiredTemplateView):
 
     def get(self, request):
         # also adds a randomly ordered queryset of given length within the given range, containing questions
+        current_user = request.user
+        last_quiz = eval(current_user.last_quiz) # evaluates the JSON last quiz state
+        question_ids = [x[1] for x in last_quiz] # retrieves the question ids 
+        
+        # Creates a set of conditions that places question in according place
+        preserved = Case(*[When(question_id=question_id, then=index) for index, question_id in enumerate(question_ids)])
+
+        question_data = Question.objects.filter(question_id__in=question_ids).order_by(preserved)
+        
         args = {
-            'title': 'Do quiz'
+            'question_data': question_data,
+            'title': 'Do quiz',
         }
 
         return render(request, self.template_name, args)

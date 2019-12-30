@@ -206,7 +206,10 @@
 
             margin-right: auto;
             margin-left: auto;
-            height: 95%;
+            object-fit: contain;
+
+            width: 100%;
+            height: 100%;
 
             border-radius: 10px;
         }
@@ -222,6 +225,27 @@
         
         var answers;
         var number_of_quesions;
+
+        function init() {
+            // get global CSS variables for relevant colours
+            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
+            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
+            
+            number_of_quesions = {{ question_data.count }};
+            
+            // creates an answers object where each question has its own attribute
+            // each question attribute is another object of the information for each question
+
+            answers = []
+
+            // answers contains, question number, question id, and student answer
+            last_quiz = JSON.parse('{{ user.last_quiz }}'.replace(/None/g, 'null'))
+
+            {% for question in question_data %}
+                last_quiz[{{ forloop.counter0 }}].push('{{ question.correct_answer }}')
+            {% endfor %}
+            
+        }
 
         function select_question(question_number) {
             if (question_number >= number_of_quesions) {
@@ -265,108 +289,51 @@
         
         }
 
-        function init() {
-            // get global CSS variables for relevant colours
-            default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
-            hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
-            
-            number_of_quesions = {{ question_data.count }};
-            
-            // creates an answers object where each question has its own attribute
-            // each question attribute is another object of the information for each question
-            answers = {
-                {% for question in question_data %}
-                    {{ forloop.counter }}: {
-                        "id": {{ question.id }},
-                        "student_answer": null
-                    },
-                {% endfor %}
-            };
-        }
-
-        function select_answer(current_question, answer) {
-            answers[current_question]["student_answer"] = answer;
-
-
-            // finding the answer number allows the selected question to be shaded in the nav bar
-            switch (answer) {
-                case "A":
-                    answer_number = 1;
-                    break;
-                case "B":
-                    answer_number = 2;
-                    break;
-                case "C":
-                    answer_number = 3;
-                    break;
-                case "D":
-                    answer_number = 4;
-                    break;
-            }
-
-            // constructing the classname
-            answer_query_string = "q" + current_question + " answer-box"
-
-            // retrieving a list of objects from the DOM under this given class name
-            boxes = document.getElementsByClassName(answer_query_string);
-            
-            // iterating over these objects shifted +1 to align the retrieved answer_number with the box
-            for (var i = 1; i <= boxes.length; i++) {
-                if (i == answer_number) {
-                    boxes[i-1].style.backgroundColor = hover_colour;
-                } else {
-                    boxes[i-1].style.backgroundColor = default_colour;
-                }
-            }
-
-            
+        function finish_review() {
+            // REMOVE RETRIEVED ANSWERS
         }
 
         init()
 
         select_question(1); // always select the first question when the quiz starts
-
-        function submit_answers() {
-            console.log(answers)
-        }
-
         
     </script>
 {% endblock %}
 
 {% block content %}
+    {% load static %}
     <div id="context-wrapper">
         <!-- The question queryset is iterated over, creating all question context-wrapper elements -->
         {% for question in question_data %}
-            {% if question.diagram %}
+            {% ifnotequal question.diagram_name "nan" %}
                 <p class="question-paragraph q{{ forloop.counter }} diagram">
-                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.spec_point }}]</strong>
+                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
                 </p>
 
-                <img class='question-image q{{ forloop.counter }} diagram' src='https://www.indiabix.com/_files/images/engineering-mechanics/pg2-9.png'>
+                <img class='question-image q{{ forloop.counter }} diagram' src='{% static "main_app/" %}{{question.diagram_name}}'>
             {% else %}
                 <p class="question-paragraph q{{ forloop.counter }}">
-                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.spec_point }}]</strong>
+                    <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
                     {{ question.question }}
                 </p>
-            {% endif %}
+            {% endifnotequal %}
         {% endfor %}
     </div>
 
     <!-- The question queryset is iterated over, creating all divs and elements for all questions -->
     {% for question in question_data %}
-        {% if question.diagram %}
-            <div class="answer-box a1-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
-            <div class="answer-box a2-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
-            <div class="answer-box a3-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
-            <div class="answer-box a4-box q{{ forloop.counter }} diagram" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
+        {% ifnotequal question.diagram_name "nan" %}
+            <div class="answer-box a1-box q{{ forloop.counter }} diagram"><span class="question-span">{{ question.a }}</span></div>
+            <div class="answer-box a2-box q{{ forloop.counter }} diagram"><span class="question-span">{{ question.b }}</span></div>
+            <div class="answer-box a3-box q{{ forloop.counter }} diagram"><span class="question-span">{{ question.c }}</span></div>
+            <div class="answer-box a4-box q{{ forloop.counter }} diagram"><span class="question-span">{{ question.d }}</span></div>
         {% else %}
-            <div class="answer-box a1-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'A')"><span class="question-span">{{ question.a }}</span></div>
-            <div class="answer-box a2-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'B')"><span class="question-span">{{ question.b }}</span></div>
-            <div class="answer-box a3-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'C')"><span class="question-span">{{ question.c }}</span></div>
-            <div class="answer-box a4-box q{{ forloop.counter }}" onclick="select_answer({{ forloop.counter }}, 'D')"><span class="question-span">{{ question.d }}</span></div>
-        {% endif %}
+            <div class="answer-box a1-box q{{ forloop.counter }}"><span class="question-span">{{ question.a }}</span></div>
+            <div class="answer-box a2-box q{{ forloop.counter }}"><span class="question-span">{{ question.b }}</span></div>
+            <div class="answer-box a3-box q{{ forloop.counter }}"><span class="question-span">{{ question.c }}</span></div>
+            <div class="answer-box a4-box q{{ forloop.counter }}"><span class="question-span">{{ question.d }}</span></div>
+        {% endifnotequal %}
     {% endfor %}
 
 
@@ -379,8 +346,12 @@
         {% endfor %} 
     </div>
     <div id="nav-items-wrapper">
-        <div id="finished-button" onclick="submit_answers()"><span id="finished-span">Finish</span></div>
+        <div id="finished-button" onclick="finish_review()"><span id="finished-span">Finish</span></div>
         <div id="next-button" onclick="select_question(current_question + 1)"><span id="next-span"> > </span></div>  
         <div id="previous-button" onclick="select_question(current_question - 1)"><span id="previous-span"> < </span></div> 
+        <form id='hidden_form' method="POST">
+            {% csrf_token %}
+            <input type="hidden" id="hidden_field" name="answers">
+        </form>
     </div>
 {% endblock content %}
