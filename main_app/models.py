@@ -34,15 +34,19 @@ class Answer(models.Model):
     answer_id       = models.AutoField(primary_key=True)
     user            = models.ForeignKey(users_models.User, on_delete=models.CASCADE) # Foreign key referencing User table
     question        = models.ForeignKey(Question, on_delete=models.CASCADE) # models.CASCADE deletes this entity when referenced entitity is deleted
-    date_answered   = models.DateTimeField(auto_now=True)
+    answered_on     = models.DateTimeField(auto_now_add=True)
     is_correct      = models.BooleanField()
 
 
 class Quiz(models.Model):
     
-    quiz_id         = models.AutoField(primary_key=True)
-    spec_range      = models.TextField()  # maybe change later
-    no_questions    = models.IntegerField()
+    quiz_id                 = models.AutoField(primary_key=True)
+    specification_range     = models.TextField()  # maybe change later
+    no_questions            = models.IntegerField()
+
+    def __str__(self):
+        return f"specification_range: {self.specification_range}, no_questions: {self.no_questions}"
+    
 
 
 
@@ -52,6 +56,9 @@ class QuizResult(models.Model):
     quiz                = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     user                = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
     percentage_correct  = models.FloatField()
+
+    def __str__(self):
+        return f"specification_range: {self.quiz.specification_range}, no_questions: {self.quiz.no_questions}, correct: {self.percentage_correct}"
 
 class Class(models.Model):
 

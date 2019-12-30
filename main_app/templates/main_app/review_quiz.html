@@ -238,16 +238,6 @@
 
             // answers contains, question number, question id, and student answer
             last_quiz = JSON.parse('{{ user.last_quiz }}'.replace(/None/g, 'null'))
-
-            {% for question in question_data %}
-                last_quiz[{{ forloop.counter0 }}].push('{{ question.correct_answer }}')
-            {% endfor %}
-
-            for (var i = 0; i < last_quiz.length; i++) {
-                // convert answer letters into numbers
-                last_quiz[i][3] = last_quiz[i][3].charCodeAt(0) - 96
-            }
-
             
             select_question(1); // always select the first question when the quiz starts
             set_colours();
