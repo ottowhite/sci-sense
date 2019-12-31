@@ -279,15 +279,15 @@ class ReviewQuizView(LoginRequiredTemplateView):
         return render(request, self.template_name, args)
 
 
-    def post(self, request):
-        pass
-
 class ViewResultsView(LoginRequiredTemplateView):
     template_name = 'main_app/view_results.html'
 
     def get(self, request):
+        current_user = request.user
+
         args = {
-            'title': 'My Results'
+            'title': 'My Results',
+            'results': QuizResult.objects.filter(user=current_user).order_by('-completed_on')
         }
 
         return render(request, self.template_name, args)

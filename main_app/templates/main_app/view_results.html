@@ -7,6 +7,13 @@
         #content {
             height: 100%;
         }
+
+        #results-table {
+            width: 100%;
+            background-color: #e5dfdf;
+            border-radius: 10px;
+            font-size: 1.3em;
+        }
     </style>
 {% endblock %}
 
@@ -16,6 +23,29 @@
     <!-- This content is displayed if the user is a student -->
     <h1>My results</h1>
 
-    <p>Your results will appear here</p>
+    {% if results %}
+    <table id='results-table'>
+        <tr>
+            <th>Quiz title</th>
+            <th>Number of questions</th>
+            <th>Result</th>
+            <th>Time of completion</th>
+        </tr> 
+        {% for result in results %}
+            <tr>
+                <td>{{ result.quiz.specification_range }}</td> 
+                <td>{{ result.quiz.no_questions }}</td>
+                <td>{{ result.percentage_correct }}%</td> 
+                <td>{{ result.completed_on }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p>
+            You have no results to display.
+        </p>
+    {% endif %}
+
+    
 
 {% endblock content %}
