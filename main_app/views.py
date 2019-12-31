@@ -68,8 +68,8 @@ class GenerateQuizView(LoginRequiredTemplateView):
 
             # converting a dict containing GET data into a querystring to be used in the quiz page request
             query_string = urlencode({
-                'starting_specification_point': form.cleaned_data['starting_specification_point'],
-                'ending_specification_point': form.cleaned_data['ending_specification_point'],
+                'starting_specification_point': form.cleaned_data['topic'],
+                'ending_specification_point': float(form.cleaned_data['topic']) + 0.999,
                 'maximum_questions': form.cleaned_data['maximum_questions']
             })
 
