@@ -1,0 +1,21 @@
+<!-- Allows the page to override blocks defined in the logged_in page -->
+{% extends "main_app/logged_in.html" %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <style id="home-css">
+        #content {
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
+<!-- This block will be overwritten by the unique code of each page -->
+{% block content %}
+
+    <!-- This content is displayed if the user is a student -->
+    <h1>My results</h1>
+
+    <p>Your results will appear here</p>
+
+{% endblock content %}

@@ -281,3 +281,13 @@ class ReviewQuizView(LoginRequiredTemplateView):
 
     def post(self, request):
         pass
+
+class ViewResultsView(LoginRequiredTemplateView):
+    template_name = 'main_app/view_results.html'
+
+    def get(self, request):
+        args = {
+            'title': 'My Results'
+        }
+
+        return render(request, self.template_name, args)

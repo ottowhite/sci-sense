@@ -99,7 +99,8 @@
                 {% if user.is_staff %}
                     <ul id="menu-list">
                         <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quiz me</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-view-results' %}" class="menu-list-item-link">My Results</a> </li>
                         <li class="menu-list-item"> <a href="{% url 'main-generate-terms' %}" class="menu-list-item-link">Terms and definitions</a> </li>
                         <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
                         <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
@@ -108,7 +109,8 @@
                 {% else %}
                     <ul id="menu-list">
                         <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quizzes</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quiz me</a> </li>
+                        <li class="menu-list-item"> <a href="{% url 'main-view-results' %}" class="menu-list-item-link">My Results</a> </li>
                         <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
                         <li class="menu-list-item"> <a href="{% url 'main-generate-terms' %}" class="menu-list-item-link">Terms and definitions</a> </li>
                         <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>
@@ -120,6 +122,12 @@
         
         <div class="content-wrapper">
             <div class="box" id="content">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class='alert alert-{{ message.tags }}'>{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+
                 {% block content %} 
                     <!-- This block is overwritten by the actual page contents -->
                 {% endblock content %}
