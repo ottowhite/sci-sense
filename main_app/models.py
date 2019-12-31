@@ -15,6 +15,11 @@ class Question(models.Model):
     d                       = models.CharField(max_length=50)
     correct_answer          = models.CharField(max_length=1, default='')
 
+class Topic(models.Model):
+    topic_id        = models.AutoField(primary_key=True)
+    topic_number    = models.IntegerField()
+    topic_name      = models.TextField()
+
 class Term(models.Model):
 
     term_id                 = models.AutoField(primary_key=True)
@@ -46,9 +51,6 @@ class Quiz(models.Model):
 
     def __str__(self):
         return f"specification_range: {self.specification_range}, no_questions: {self.no_questions}"
-    
-
-
 
 class QuizResult(models.Model):
 

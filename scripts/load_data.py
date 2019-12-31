@@ -1,5 +1,5 @@
 import pandas as pd
-from main_app.models import Question, Term
+from main_app.models import Question, Term, Topic
 import numpy as np
 import ipdb
 import random
@@ -47,6 +47,18 @@ def import_terms(path):
 
     Term.objects.bulk_create(term_list)
 
-import_questions('scripts/question_data/question_data.csv')
+def import_topics(path):
+    topics = pd.read_csv(path, index_col=0)
+
+    topic_list = []
+
+    for x in range(len(topics)):
+        topic_list.append(Topic(
+            topic_number=topics.values[x][0],
+            topic_name=topics.values[x][1]))
+
+    Topic.objects.bulk_create(topic_list)
+
+import_topics('scripts/question_data/topic_data.csv')
 
 
