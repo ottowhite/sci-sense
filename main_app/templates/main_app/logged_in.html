@@ -41,24 +41,106 @@
             justify-self: start;
         }
 
-        #menu-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .menu-list-item {
+        .menu-link {
             float: left;
-            padding: 10px;
-            margin: 10px;
-        }
-
-        .menu-list-item-link {
             text-decoration: none;
+            padding: 20px;
             color: var(--primary-text);
         }
 
-        .menu-list-item-link:hover {
+        .menu-link:hover {
+            text-decoration: none;
+            color: var(--secondary-text);
+        }
+
+        /* User dropdown CSS */
+        .user-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .user-dropdown .user-dropdown-button {
+            padding: 20px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .user-dropdown:hover .user-dropdown-button, .user-dropdown-button:focus {
+            text-decoration: none;
+            color: var(--secondary-text);
+        }
+
+        .user-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--primary-content);
+            min-width: 150px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: -10px;
+            top: 45px;
+            z-index: 0;
+            border-radius: 10px;
+        }
+
+        .user-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .user-dropdown-content a:hover {
+            text-decoration: none;
+            color: var(--secondary-text);
+        }
+
+        /* Manage button CSS */
+        .manage-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .manage-dropdown .manage-dropdown-button {
+            padding: 20px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .manage-dropdown:hover .manage-dropdown-button, .manage-dropdown-button:focus {
+            text-decoration: none;
+            color: var(--secondary-text);
+        }
+
+        .manage-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--primary-content);
+            min-width: 150px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            right: -10px;
+            top: 45px;
+            z-index: 0;
+            border-radius: 10px;
+        }
+
+        .manage-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .manage-dropdown-content a:hover {
             text-decoration: none;
             color: var(--secondary-text);
         }
@@ -83,6 +165,30 @@
     </style>
 {% endblock %}
 
+{% block scripts %}
+    <script id='dropdown-js'>
+        // display according items when clicked
+        function show_user_dropdown() {
+            document.getElementsByClassName('user-dropdown-content')[0].style.display = 'block'
+        }
+
+        function show_manage_dropdown() {
+            document.getElementsByClassName('manage-dropdown-content')[0].style.display = 'block'
+        }
+
+        document.onclick = function(event) {
+            // if neither dropdown is hovered on, close them both
+            if (!event.target.matches('.user-dropdown-button')) {
+                document.getElementsByClassName('user-dropdown-content')[0].style.display = 'none'
+            }
+
+            if (!event.target.matches('.manage-dropdown-button')) {
+                document.getElementsByClassName('manage-dropdown-content')[0].style.display = 'none'
+            }
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
 
     <div id="wrapper">
@@ -97,25 +203,49 @@
     
                 <!-- The nav bar displays different elements depending on the status (student/teacher) of the user -->
                 {% if user.is_staff %}
-                    <ul id="menu-list">
-                        <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quiz me</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-view-results' %}" class="menu-list-item-link">My Results</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-terms' %}" class="menu-list-item-link">Terms and definitions</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Class progress</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Manage</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user.first_name }} {{ user.last_name }}</a> </li>
-                    </ul>
+                    <div id="menu-list">
+                        <a href="{% url 'main-home' %}"             class="menu-link">Home</a>
+                        <a href="{% url 'main-generate-quiz' %}"    class="menu-link">Quiz me</a>
+                        <a href="{% url 'main-view-results' %}"     class="menu-link">My Results</a>
+                        <a href="{% url 'main-generate-terms' %}"   class="menu-link">Terms and definitions</a>
+                        <a href="#"                                 class="menu-link">Class progress</a>
+                        
+                        <div class="manage-dropdown">
+                            <button class='manage-dropdown-button' onclick="show_manage_dropdown()">Manage</button>
+                            <div class="manage-dropdown-content" id='manage-dropdown'>
+                                <a href='#'>Assignments</a>
+                                <a href='#'>Classes</a>
+                                <a href='#'>Questions</a>
+                                <a href='#'>Terms and definitions</a>
+                            </div>
+                        </div>
+
+                        <div class="user-dropdown">
+                            <button class='user-dropdown-button' onclick="show_user_dropdown()">{{ user.first_name }} {{ user.last_name }} </button>
+                            <div class="user-dropdown-content" id='user-dropdown'>
+                                <a href='#'>My Account</a>
+                                <a href='{% url 'logout' %}'>Log out</a>
+                            </div>
+                        </div>
+
+                    </div>
                 {% else %}
-                    <ul id="menu-list">
-                        <li class="menu-list-item"> <a href="{% url 'main-home' %}" class="menu-list-item-link">Home</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-quiz' %}" class="menu-list-item-link">Quiz me</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-view-results' %}" class="menu-list-item-link">My Results</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">Assignments</a> </li>
-                        <li class="menu-list-item"> <a href="{% url 'main-generate-terms' %}" class="menu-list-item-link">Terms and definitions</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">View specification</a> </li>
-                        <li class="menu-list-item"> <a href="#" class="menu-list-item-link">{{ user.first_name }} {{ user.last_name }}</a></li>
-                    </ul>
+                    <div id="menu-list">
+                        <a href="{% url 'main-home' %}"             class="menu-link">Home</a>
+                        <a href="{% url 'main-generate-quiz' %}"    class="menu-link">Quiz me</a>
+                        <a href="{% url 'main-view-results' %}"     class="menu-link">My Results</a>
+                        <a href="{% url 'main-generate-terms' %}"   class="menu-link">Terms and definitions</a>
+                        <a href="{% url 'main-generate-terms' %}"   class="menu-link">Assignments</a>
+
+                        <div class="user-dropdown">
+                            <button class='user-dropdown-button' onclick="show_user_dropdown()">{{ user.first_name }} {{ user.last_name }} </button>
+                            <div class="user-dropdown-content" id='user-dropdown'>
+                                <a href='#'>My Account</a>
+                                <a href='{% url 'logout' %}'>Log out</a>
+                            </div>
+                        </div>
+
+                    </div>
                 {% endif %}
             </div>
         </div>
