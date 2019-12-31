@@ -190,13 +190,14 @@ class QuizView(LoginRequiredTemplateView):
             if (current_question_object.specification_point < smallest_spec):
                 smallest_spec = current_question_object.specification_point
 
+            
             answer_objects.append(Answer(
                 user            = current_user,
                 question        = Question.objects.get(question_id=x[1]),
                 is_correct      = is_correct
             ))
 
-            Answer.objects.bulk_create(answer_objects)
+        Answer.objects.bulk_create(answer_objects)
 
         specification_range = f"[{smallest_spec}, {largest_spec}]"
         no_questions = len(answers)
@@ -207,8 +208,6 @@ class QuizView(LoginRequiredTemplateView):
             quiz.save()
         else:
             quiz = Quiz.objects.filter(Q(specification_range=specification_range) & Q(no_questions=no_questions)).first()
-        
-        ipdb.set_trace()
 
         # creating the quizResult object
         percentage_correct = round(((correct_answers / no_questions) * 100), 1)

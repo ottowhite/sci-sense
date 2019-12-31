@@ -122,9 +122,6 @@
             color: var(--primary-text)
         }
 
-        .question-number:hover, .answer-box:hover {
-            background-color: var(--primary-hover);
-        }
 
         .question-nav-span {
             justify-self: center;
@@ -233,7 +230,7 @@
             default_colour = getComputedStyle(document.documentElement).getPropertyValue("--accent-colour");
             hover_colour = getComputedStyle(document.documentElement).getPropertyValue("--primary-hover");
             correct_colour = "#5d9451";
-            incorrect_colour = "#ED8A68";
+            incorrect_colour = "#CD5C5D";
             number_of_quesions = {{ question_data.count }};
 
             // answers contains, question number, question id, and student answer

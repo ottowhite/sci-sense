@@ -56,6 +56,7 @@ class QuizResult(models.Model):
     quiz                = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     user                = models.ForeignKey(users_models.User, on_delete=models.CASCADE)
     percentage_correct  = models.FloatField()
+    completed_on        = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"specification_range: {self.quiz.specification_range}, no_questions: {self.quiz.no_questions}, correct: {self.percentage_correct}"
