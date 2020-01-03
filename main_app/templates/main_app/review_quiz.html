@@ -234,7 +234,7 @@
             number_of_quesions = {{ question_data.count }};
 
             // answers contains, question number, question id, and student answer
-            last_quiz = JSON.parse('{{ user.last_quiz }}'.replace(/None/g, 'null'))
+            last_quiz = JSON.parse('{{ request.session.last_quiz }}'.replace(/None/g, 'null'))
             
             select_question(1); // always select the first question when the quiz starts
             set_colours();

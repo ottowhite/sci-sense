@@ -277,7 +277,7 @@ class ReviewQuizView(LoginRequiredTemplateView):
             preserved = Case(*[When(question_id=question_id, then=index) for index, question_id in enumerate(question_ids)])
 
             question_data = Question.objects.filter(question_id__in=question_ids).order_by(preserved)
-            
+
             args = {
                 'question_data': question_data,
                 'title': 'Do quiz',
