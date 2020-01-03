@@ -66,7 +66,7 @@ class GenerateQuizView(LoginRequiredTemplateView):
             request.session['starting_specification_point'] = float(form.cleaned_data['topic'])
             request.session['ending_specification_point']   = float(form.cleaned_data['topic']) + 0.999
             request.session['maximum_questions']            = int(form.cleaned_data['maximum_questions'])
-            request.session['topic_name'] = Topic.objects.get(topic_number=int(form.cleaned_data['topic'])).topic_name
+            request.session['quiz_name'] = Topic.objects.get(topic_number=int(form.cleaned_data['topic'])).topic_name
 
             # creating a get request with parameters from the form
             return redirect('main-quiz')
@@ -203,8 +203,12 @@ class QuizView(LoginRequiredTemplateView):
 
         # Either get the existing quiz or create a new one if not exists
         if not Quiz.objects.filter(Q(specification_range=specification_range) & Q(no_questions=no_questions)):
-            quiz = Quiz(specification_range=specification_range, no_questions=no_questions)
+            quiz = Quiz(
+                specification_range=specification_range, 
+                no_questions=no_questions,
+                quiz_name=request.session['quiz_name'])
             quiz.save()
+
         else:
             quiz = Quiz.objects.filter(Q(specification_range=specification_range) & Q(no_questions=no_questions)).first()
 

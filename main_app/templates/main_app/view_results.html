@@ -30,13 +30,15 @@
     {% if results %}
     <table id='results-table'>
         <tr>
-            <th>Quiz title</th>
+            <th>Quiz name</th>
+            <th>Specification range</th>
             <th>Number of questions</th>
             <th>Result</th>
             <th>Time of completion</th>
         </tr> 
         {% for result in results %}
             <tr>
+                <td>{{ result.quiz.quiz_name }}</td> 
                 <td>{{ result.quiz.specification_range }}</td> 
                 <td>{{ result.quiz.no_questions }}</td>
                 <td>{{ result.percentage_correct }}%</td> 

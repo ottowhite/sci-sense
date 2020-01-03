@@ -41,6 +41,7 @@ class Answer(models.Model):
 class Quiz(models.Model):
     
     quiz_id                 = models.AutoField(primary_key=True)
+    quiz_name               = models.TextField()
     specification_range     = models.TextField()  # maybe change later
     no_questions            = models.IntegerField()
 
