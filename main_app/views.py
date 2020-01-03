@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from main_app.models import Question, Answer, Quiz, QuizResult, Topic
+from main_app.models import Question, Answer, Quiz, QuizResult, Topic, Term
 from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import ObjectDoesNotExist, Case, When, Q
 from urllib.parse import urlencode
@@ -110,19 +110,17 @@ class GenerateTermsView(LoginRequiredTemplateView):
         
         # ensuring that the form inputs are valid
         if form.is_valid():
-            # retrieving the absolute url of the main quiz page through a reverse lookup based on the
-            # name defined on created url patterns
-            base_url = reverse('main-terms')
 
-            # converting a dict containing GET data into a querystring to be used in the quiz page request
-            query_string = urlencode({
-                'starting_specification_point': form.cleaned_data['starting_specification_point'],
-                'ending_specification_point': form.cleaned_data['ending_specification_point'],
-                'in_order': form.cleaned_data['in_order']
-            })
+            request.session['starting_specification_point'] = float(form.cleaned_data['topic'])
+            request.session['ending_specification_point']   = float(form.cleaned_data['topic']) + 0.999
+            request.session['in_order']                     = bool(form.cleaned_data['in_order'])
 
             # creating a get request with parameters from the form
-            return redirect(f'{base_url}?{query_string}')
+            return redirect('main-terms')
+        
+        else:
+
+            return redirect('main-generate-terms')
 
 
 class QuizView(LoginRequiredTemplateView):
@@ -225,6 +223,7 @@ class QuizView(LoginRequiredTemplateView):
 
         request.session['last_quiz'] = answers
 
+        # remove the session variables that allow the quiz to be backtracked to
         request.session.pop('starting_specification_point', None)
         request.session.pop('ending_specification_point', None)
         request.session.pop('maximum_questions', None)
@@ -239,28 +238,29 @@ class TermsView(LoginRequiredTemplateView):
     
 
     def get(self, request):
-        from .models import Term
+        try:
+            # retrieving the different form values from the address, casting to according data types
+            start    = request.session['starting_specification_point']
+            end      = request.session['ending_specification_point']
+            in_order = request.session['in_order']
 
-        # retrieving the different form values from the address, casting to according data types
-        start = float(request.GET.get('starting_specification_point'))
-        end = float(request.GET.get('ending_specification_point'))
-        in_order = request.GET.get('in_order')
+            # swapping the order of the start and end spec position if they 
+            # are in the wrong order
+            (start, end) = (end, start) if start > end else (start, end)
 
-        # swapping the order of the start and end spec position if they 
-        # are in the wrong order
-        (start, end) = (end, start) if start > end else (start, end)
+            if in_order == True:
+                terms = Term.objects.filter(specification_point__range=(start, end))
+            else:
+                terms = Term.objects.filter(specification_point__range=(start, end)).order_by('?')
+            
+            args = {
+                'terms': terms,
+                'title': 'Terms and definitions'
+            }
 
-        if in_order == 'True':
-            terms = Term.objects.filter(specification_point__range=(start, end))
-        else:
-            terms = Term.objects.filter(specification_point__range=(start, end)).order_by('?')
-        
-        args = {
-            'terms': terms,
-            'title': 'Terms and definitions'
-        }
-
-        return render(request, self.template_name, args)
+            return render(request, self.template_name, args)
+        except KeyError:
+            return redirect('main-generate-terms')
 
 
 class ReviewQuizView(LoginRequiredTemplateView):

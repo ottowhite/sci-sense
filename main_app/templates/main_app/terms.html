@@ -203,7 +203,7 @@
         {% endfor %}
         <div class='button' id="previous-button" onclick="display_card('previous')"><span id="previous-button-span"> < </span></div>
         {% for term in terms %}
-            <span class="question-number-span" id="q{{ forloop.counter }}">Term {{ forloop.counter }} / {{ terms.count }} [Spec: {{ term.spec_point }}]</span>
+            <span class="question-number-span" id="q{{ forloop.counter }}">Term {{ forloop.counter }} / {{ terms.count }} [Spec: {{ term.specification_point }}]</span>
         {% endfor %}
         <div class='button' id="next-button" onclick="display_card('next')"><span id="next-button-span"> > </span></div> 
     </div>
