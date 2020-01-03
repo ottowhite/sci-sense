@@ -16,6 +16,7 @@ class Question(models.Model):
     correct_answer          = models.CharField(max_length=1, default='')
 
 class Topic(models.Model):
+
     topic_id        = models.AutoField(primary_key=True)
     topic_number    = models.IntegerField()
     topic_name      = models.TextField()
@@ -26,12 +27,6 @@ class Term(models.Model):
     specification_point     = models.FloatField()
     term                    = models.TextField()
     definition              = models.TextField()
-
-
-class SpecReference(models.Model):
-    
-    topic_number    = models.FloatField(primary_key=True)
-    topic_name      = models.TextField()
 
 
 class Answer(models.Model):
