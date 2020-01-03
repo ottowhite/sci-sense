@@ -62,19 +62,17 @@ class GenerateQuizView(LoginRequiredTemplateView):
         
         # ensuring that the form inputs are valid
         if form.is_valid():
-            # retrieving the absolute url of the main quiz page through a reverse lookup based on the
-            # name defined on created url patterns
-            base_url = reverse('main-quiz')
 
-            # converting a dict containing GET data into a querystring to be used in the quiz page request
-            query_string = urlencode({
-                'starting_specification_point': form.cleaned_data['topic'],
-                'ending_specification_point': float(form.cleaned_data['topic']) + 0.999,
-                'maximum_questions': form.cleaned_data['maximum_questions']
-            })
+            request.session['starting_specification_point'] = float(form.cleaned_data['topic'])
+            request.session['ending_specification_point']   = float(form.cleaned_data['topic']) + 0.999
+            request.session['maximum_questions']            = int(form.cleaned_data['maximum_questions'])
 
             # creating a get request with parameters from the form
-            return redirect(f'{base_url}?{query_string}')
+            return redirect('main-quiz')
+        
+        else:
+
+            return redirect('main-generate-quiz')
 
 
 class GenerateTermsView(LoginRequiredTemplateView):
@@ -134,9 +132,9 @@ class QuizView(LoginRequiredTemplateView):
         
         try:
             # retrieving the different form values from the address, casting to according data types
-            start = float(request.GET.get('starting_specification_point'))
-            end = float(request.GET.get('ending_specification_point'))
-            maximum = int(request.GET.get('maximum_questions'))
+            start   = request.session['starting_specification_point']
+            end     = request.session['ending_specification_point']
+            maximum = request.session['maximum_questions']
 
             # swapping the order of the start and end spec position if they 
             # are in the wrong order
@@ -156,7 +154,7 @@ class QuizView(LoginRequiredTemplateView):
 
             return render(request, self.template_name, args)
 
-        except TypeError:
+        except KeyError:
             # In the event that the retrieving part of the GET request query string
             # results in a type error as is empty, redirect to the quiz generation page
             return redirect('main-generate-quiz')
@@ -220,8 +218,7 @@ class QuizView(LoginRequiredTemplateView):
 
         quiz_result.save()
 
-        current_user.last_quiz = answers
-        current_user.save()
+        request.session['last_quiz'] = answers
 
         return redirect('main-review-quiz')
 
@@ -261,22 +258,24 @@ class ReviewQuizView(LoginRequiredTemplateView):
 
 
     def get(self, request):
-        # also adds a randomly ordered queryset of given length within the given range, containing questions
-        current_user = request.user
-        last_quiz = eval(current_user.last_quiz) # evaluates the JSON last quiz state
-        question_ids = [x[1] for x in last_quiz] # retrieves the question ids 
-        
-        # Creates a set of conditions that places question in according place
-        preserved = Case(*[When(question_id=question_id, then=index) for index, question_id in enumerate(question_ids)])
+        try:
+            # also adds a randomly ordered queryset of given length within the given range, containing questions
+            last_quiz = eval(str(request.session['last_quiz'])) # evaluates the JSON last quiz state
+            question_ids = [x[1] for x in last_quiz] # retrieves the question ids 
+            
+            # Creates a set of conditions that places question in according place
+            preserved = Case(*[When(question_id=question_id, then=index) for index, question_id in enumerate(question_ids)])
 
-        question_data = Question.objects.filter(question_id__in=question_ids).order_by(preserved)
-        
-        args = {
-            'question_data': question_data,
-            'title': 'Do quiz',
-        }
+            question_data = Question.objects.filter(question_id__in=question_ids).order_by(preserved)
+            
+            args = {
+                'question_data': question_data,
+                'title': 'Do quiz',
+            }
 
-        return render(request, self.template_name, args)
+            return render(request, self.template_name, args)
+        except KeyError:
+            return redirect('main-generate-quiz')
 
 
 class ViewResultsView(LoginRequiredTemplateView):
