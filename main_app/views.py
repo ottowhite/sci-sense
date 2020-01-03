@@ -225,6 +225,11 @@ class QuizView(LoginRequiredTemplateView):
 
         request.session['last_quiz'] = answers
 
+        request.session.pop('starting_specification_point', None)
+        request.session.pop('ending_specification_point', None)
+        request.session.pop('maximum_questions', None)
+        request.session.pop('quiz_name', None)
+
         return redirect('main-review-quiz')
 
 
