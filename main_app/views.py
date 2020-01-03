@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from main_app.models import Question, Answer, Quiz, QuizResult
+from main_app.models import Question, Answer, Quiz, QuizResult, Topic
 from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import ObjectDoesNotExist, Case, When, Q
 from urllib.parse import urlencode
@@ -66,6 +66,7 @@ class GenerateQuizView(LoginRequiredTemplateView):
             request.session['starting_specification_point'] = float(form.cleaned_data['topic'])
             request.session['ending_specification_point']   = float(form.cleaned_data['topic']) + 0.999
             request.session['maximum_questions']            = int(form.cleaned_data['maximum_questions'])
+            request.session['topic_name'] = Topic.objects.get(topic_number=int(form.cleaned_data['topic'])).topic_name
 
             # creating a get request with parameters from the form
             return redirect('main-quiz')
