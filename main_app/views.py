@@ -300,3 +300,15 @@ class ViewResultsView(LoginRequiredTemplateView):
         }
 
         return render(request, self.template_name, args)
+
+
+class ManageQuestionsView(LoginRequiredTemplateView):
+    template_name = 'main_app/manage_questions.html'
+
+    def get(self, request):
+
+        args = {
+            'title': 'Manage questions'
+        }
+
+        return render(request, self.template_name, args)

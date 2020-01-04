@@ -8,7 +8,8 @@ from main_app.views import (
     ReviewQuizView, 
     GenerateTermsView, 
     TermsView, 
-    ViewResultsView
+    ViewResultsView,
+    ManageQuestionsView
 )
 
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
     path('generate_terms', GenerateTermsView.as_view(), name="main-generate-terms"),
     path('review_quiz', ReviewQuizView.as_view(), name="main-review-quiz"),
     path('my_results', ViewResultsView.as_view(), name="main-view-results"),
+    path('manage_questions', ManageQuestionsView.as_view(), name="main-manage-questions"),
 ]
