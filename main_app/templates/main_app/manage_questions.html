@@ -21,8 +21,7 @@
         
     <h1>Manage questions</h1>
 
-    <p>
-        Upload questions by csv
-    </p>
+    {% load static %}
+    <a href='{% static "main_app/question_data_template.csv" %}'>Download template CSV</a>
 
 {% endblock content %}

@@ -8,12 +8,12 @@ class Question(models.Model):
     question_id             = models.AutoField(primary_key=True)
     specification_point     = models.FloatField()
     question                = models.TextField()
-    diagram_name            = models.TextField(default='')
+    diagram_name            = models.FileField()
     a                       = models.CharField(max_length=50)
     b                       = models.CharField(max_length=50)
     c                       = models.CharField(max_length=50)
     d                       = models.CharField(max_length=50)
-    correct_answer          = models.CharField(max_length=1, default='')
+    correct_answer          = models.CharField(max_length=1, default='a')
 
 class Topic(models.Model):
 

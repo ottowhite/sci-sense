@@ -341,7 +341,7 @@
                     {{ question.question }}
                 </p>
 
-                <img class='question-image q{{ forloop.counter }} diagram' src='{% static "main_app/" %}{{question.diagram_name}}'>
+                <img class='question-image q{{ forloop.counter }} diagram' src='{% static "main_app/" %}diagrams/{{question.diagram_name}}'>
             {% else %}
                 <p class="question-paragraph q{{ forloop.counter }}">
                     <strong class="q{{ forloop.counter }}">Question {{ forloop.counter }}/{{ question_data.count }} [Spec: {{ question.specification_point }}]</strong>
