@@ -8,7 +8,7 @@ class Question(models.Model):
     question_id             = models.AutoField(primary_key=True)
     specification_point     = models.FloatField()
     question                = models.TextField()
-    diagram_name            = models.FileField()
+    diagram                 = models.FileField()
     a                       = models.CharField(max_length=50)
     b                       = models.CharField(max_length=50)
     c                       = models.CharField(max_length=50)
