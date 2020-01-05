@@ -4,6 +4,7 @@ from django.db.models import ObjectDoesNotExist, Case, When, Q
 from urllib.parse import urlencode
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from main_app.upload import attempt_upload_questions
 import json
 import ipdb
 
@@ -332,8 +333,7 @@ class ManageQuestionsView(LoginRequiredTemplateView):
     def post(self, request):
         form = UploadQuestionsForm(request.POST, request.FILES)
 
-        if form.is_valid():
-            print(request.FILES['questions_csv'].read())
+        attempt_upload_questions(request) if form.is_valid() else False
         
         args = {
             'title': 'Manage questions',
