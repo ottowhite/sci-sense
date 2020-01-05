@@ -1,3 +1,4 @@
+
 <!-- Allows the page to override blocks defined in the logged_in page -->
 {% extends "main_app/logged_in.html" %}
 
@@ -5,7 +6,11 @@
     {{ block.super }}
     <style id="home-css">
         #content {
-            height: 100%;
+            padding: 3em;
+            margin-bottom: 6em;
+            
+            justify-self: center;
+            align-self: center;
         }
     </style>
 {% endblock %}
@@ -23,5 +28,12 @@
 
     {% load static %}
     <a href='{% static "main_app/question_data_template.csv" %}'>Download template CSV</a>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button value='submit'>Upload questions</button>
+    </form>
 
 {% endblock content %}

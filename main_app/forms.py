@@ -42,3 +42,7 @@ class GenerateTermsForm(forms.Form):
 
     topic = forms.ChoiceField(choices=choices)
     in_order = forms.BooleanField(required=False)
+
+class UploadQuestionsForm(forms.Form):
+
+    questions_csv = forms.FileField(required=True)

@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from main_app.models import Question, Answer, Quiz, QuizResult, Topic, Term
-from main_app.forms import GenerateQuizForm, GenerateTermsForm
 from django.db.models import ObjectDoesNotExist, Case, When, Q
 from urllib.parse import urlencode
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 import json
 import ipdb
+
+from main_app.models import (
+    Question, 
+    Answer, 
+    Quiz, 
+    QuizResult, 
+    Topic, 
+    Term
+)
+
+from main_app.forms import (
+    GenerateQuizForm, 
+    GenerateTermsForm, 
+    UploadQuestionsForm
+)
 
 class LoginRequiredTemplateView(LoginRequiredMixin, TemplateView):
     login_url = '/login/'
@@ -306,9 +319,25 @@ class ManageQuestionsView(LoginRequiredTemplateView):
     template_name = 'main_app/manage_questions.html'
 
     def get(self, request):
+        
+        form = UploadQuestionsForm()
 
         args = {
-            'title': 'Manage questions'
+            'title': 'Manage questions',
+            'form': form
+        }
+
+        return render(request, self.template_name, args)
+    
+    def post(self, request):
+        form = UploadQuestionsForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            print(request.FILES['questions_csv'].read())
+        
+        args = {
+            'title': 'Manage questions',
+            'form': form
         }
 
         return render(request, self.template_name, args)
