@@ -45,4 +45,4 @@ class GenerateTermsForm(forms.Form):
 
 class UploadQuestionsForm(forms.Form):
 
-    questions_csv = forms.FileField(required=True)
+    questions_csv = forms.FileField(required=True, label='Filled template')

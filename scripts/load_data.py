@@ -4,14 +4,14 @@ import numpy as np
 import ipdb
 import random
 
-def import_questions(path):
-    questions = pd.read_csv(path, index_col=0)
-
+def upload_questions(questions_dataframe):
     question_list = []
+    requires_diagram = []
+    ipdb.set_trace()
 
-    for x in range(len(questions)):
+    for x in range(len(questions_dataframe)):
         answers = [None] * 4
-        specification_point, diagram_name, question, answers[0], answers[1], answers[2], answers[3] = questions.iloc[x].values
+        specification_point, diagram_name, question, answers[0], answers[1], answers[2], answers[3] = questions_dataframe.iloc[x].values
         
         correct_answer = answers[0]
 
@@ -20,8 +20,6 @@ def import_questions(path):
         # find index of correct answer, and convert {0, 1, 2, 3} into {a, b, c, d}
         correct_answer_letter = chr(answers.index(correct_answer) + 97)
 
-
-        
         question_list.append(Question(
             specification_point=specification_point, 
             question=question, 
@@ -31,8 +29,12 @@ def import_questions(path):
             c=answers[2], 
             d=answers[3],
             correct_answer=correct_answer_letter))
-        
-    Question.objects.bulk_create(question_list)
+    
+    
+    # Question.objects.bulk_create(question_list)
+questions = pd.read_csv('scripts/question_data/question_data.csv')
+
+upload_questions(questions)
 
 def import_terms(path):
     terms = pd.read_csv(path, index_col=0)
@@ -58,7 +60,5 @@ def import_topics(path):
             topic_name=topics.values[x][1]))
 
     Topic.objects.bulk_create(topic_list)
-
-import_topics('scripts/question_data/topic_data.csv')
 
 

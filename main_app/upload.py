@@ -17,6 +17,7 @@ def attempt_upload_questions(request):
 
 def upload_questions(questions_dataframe):
     question_list = []
+    requires_diagram = []
 
     for x in range(len(questions_dataframe)):
         answers = [None] * 4
@@ -29,8 +30,6 @@ def upload_questions(questions_dataframe):
         # find index of correct answer, and convert {0, 1, 2, 3} into {a, b, c, d}
         correct_answer_letter = chr(answers.index(correct_answer) + 97)
 
-
-        
         question_list.append(Question(
             specification_point=specification_point, 
             question=question, 
@@ -40,14 +39,9 @@ def upload_questions(questions_dataframe):
             c=answers[2], 
             d=answers[3],
             correct_answer=correct_answer_letter))
-    
-    print('UPLOADING QUESTIONS')
         
-    # Question.objects.bulk_create(question_list)
+    Question.objects.bulk_create(question_list)
 
 def validate_questions(questions_dataframe):
     # all validation checks will go here
     return True
-
-
-    

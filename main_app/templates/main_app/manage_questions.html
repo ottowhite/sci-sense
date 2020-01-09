@@ -24,10 +24,16 @@
         {% endfor %}
     {% endif %}
         
-    <h1>Manage questions</h1>
+    <h1>Upload questions</h1>
 
     {% load static %}
-    <a href='{% static "main_app/question_data_template.csv" %}'>Download template CSV</a>
+    <p style='word-wrap: break-word; width: 25em;'>
+        To add multiple choice questions download and fill the template provided below. Ensure you save the file as a .csv
+        <br>
+        <a href='{% static "main_app/question_data_template.csv" %}'>Download template CSV</a>
+    </p>
+    
+    
 
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
