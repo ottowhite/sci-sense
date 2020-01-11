@@ -32,9 +32,6 @@ def upload_questions(questions_dataframe):
     
     
     # Question.objects.bulk_create(question_list)
-questions = pd.read_csv('scripts/question_data/question_data.csv')
-
-upload_questions(questions)
 
 def import_terms(path):
     terms = pd.read_csv(path, index_col=0)
@@ -62,3 +59,4 @@ def import_topics(path):
     Topic.objects.bulk_create(topic_list)
 
 
+import_terms('scripts/question_data/term_data.csv')
