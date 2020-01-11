@@ -65,29 +65,32 @@ class GenerateQuizView(LoginRequiredTemplateView):
     def post(self, request):
         # This method handles the GET request upon intially viewing the page
 
-        # create a form variable on the page containing the filled out post data
+        # populating the form varibale with data collected from the form
         form = GenerateQuizForm(request.POST)
 
-        # defining some arguments to be interacted with on the page
+        # repopulate arguments with form values for the case
+        # that the form doens't abide by given validators
         args = {
             'form': form,
             'title': 'Generate quiz'
         }
         
-        # ensuring that the form inputs are valid
+        # ensuring that all form inputs abide by default and additional validators
         if form.is_valid():
-
+            # utilizing session variables for storage of the quiz parameters
             request.session['starting_specification_point'] = float(form.cleaned_data['topic'])
             request.session['ending_specification_point']   = float(form.cleaned_data['topic']) + 0.999
             request.session['maximum_questions']            = int(form.cleaned_data['maximum_questions'])
             request.session['quiz_name'] = Topic.objects.get(topic_number=int(form.cleaned_data['topic'])).topic_name
 
-            # creating a get request with parameters from the form
+            # empty GET request to the main quiz; all quiz parameters stored in session variables
             return redirect('main-quiz')
-        
-        else:
 
-            return redirect('main-generate-quiz')
+        else:
+            # if validators failed, redirect to the generate quiz page
+            # with the same user inputs, but validation errors being
+            # displayed in the repopulated form through the args
+            return render(request, self.template_name, args)
 
 
 class GenerateTermsView(LoginRequiredTemplateView):
@@ -148,16 +151,6 @@ class QuizView(LoginRequiredTemplateView):
             start   = request.session['starting_specification_point']
             end     = request.session['ending_specification_point']
             maximum = request.session['maximum_questions']
-
-            # swapping the order of the start and end spec position if they 
-            # are in the wrong order
-            (start, end) = (end, start) if start > end else (start, end)
-
-            # ensuring that there can be no more than 30 questions in a quiz, and that numbers below 1 give a max of 10
-            if maximum > 30:
-                maximum = 30
-            elif maximum < 1:
-                maximum = 10
 
             # also adds a randomly ordered queryset of given length within the given range, containing questions
             args = {

@@ -1,5 +1,6 @@
 from django import forms
 from main_app.models import Question, Term, Topic
+from main_app.validators import number_of_questions_validator
 
 import ipdb
 
@@ -22,7 +23,7 @@ class GenerateQuizForm(forms.Form):
             choices.append((topic.topic_number, topic.topic_name))
 
     topic = forms.ChoiceField(choices=choices)
-    maximum_questions = forms.IntegerField()
+    maximum_questions = forms.IntegerField(validators=[number_of_questions_validator])
 
 class GenerateTermsForm(forms.Form):
     # this form will be passed as context to the quiz view
