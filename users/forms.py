@@ -17,16 +17,20 @@ class RegisterForm(UserCreationForm):
     email           = forms.EmailField(required=True)
     password1       = forms.CharField(
                         widget      = forms.PasswordInput, 
-                        label       = 'Password',
+                        label       = 'Password', # to be displayed as the form input name
                         validators  = [
-                            password_length_validator,
-                            password_contains_number,
+                            password_length_validator, # this is a list of all custom
+                            password_contains_number,  # validators for the password1 field
                             password_contains_capital
                         ]
                     )
     password2       = forms.CharField(widget=forms.PasswordInput, label='Password confirmation')
     
     
+    # overriding the clean_password2 method to check 
+    # whether or not passwords 1 and 2 actually match
+    # used a method as opposed to a validators as is
+    # converning multiple fields to be seperately retrieved
     def clean_password2(self):
         password1 = self.data['password1']
         password2 = self.data['password2']

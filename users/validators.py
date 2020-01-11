@@ -11,9 +11,9 @@ def password_length_validator(password):
 def password_contains_capital(password):
     # checks if there exists a True in an iterable where
     # the iterable is a tuple that contains an entry for 
-    # every letter, and is True if this letter is uppercase
-    if not any(letter.isupper() for letter in password):
-        # if there is no uppercase letter present, a validation error is raised
+    # every character, and is True if this character is uppercase
+    if not any(character.isupper() for character in password):
+        # if there is no uppercase character present, a validation error is raised
         raise ValidationError('Your password must contain an uppercase character. ')
     else:
         # otherwise the validator returns the password to the main flow
@@ -22,9 +22,9 @@ def password_contains_capital(password):
 def password_contains_number(password):
     # checks if there exists a True in an iterable where
     # the iterable is a tuple that contains an entry for 
-    # every letter, and is True if this letter is a digit
-    if not any(letter.isdigit() for letter in password):
-        # if there is no uppercase letter present, a validation error is raised
+    # every character, and is True if this character is a digit
+    if not any(character.isdigit() for character in password):
+        # if there is no uppercase character present, a validation error is raised
         raise ValidationError('Your password must contain a number. ')
     else:
         # otherwise the validator returns the password to the main flow

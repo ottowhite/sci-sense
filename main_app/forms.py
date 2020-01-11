@@ -18,10 +18,12 @@ class GenerateQuizForm(forms.Form):
         lower_specification_bound = topic.topic_number
         upper_specification_bound = topic.topic_number + 0.999
 
-        # only display the topic options if there exist questions for them
+        # if querying the specification range of a particular topic returns items
         if (Question.objects.filter(specification_point__range=(lower_specification_bound, upper_specification_bound)).count() != 0):
+            # append this topic name and number of the choices displayed on the topic name field
             choices.append((topic.topic_number, topic.topic_name))
 
+    # display this list of topics as a dropdown consisting of only the topics
     topic = forms.ChoiceField(choices=choices)
     maximum_questions = forms.IntegerField(validators=[number_of_questions_validator])
 
