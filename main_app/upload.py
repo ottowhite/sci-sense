@@ -1,5 +1,4 @@
 import pandas as pd
-import ipdb
 from io import StringIO
 from main_app.models import Question
 from django.contrib import messages
@@ -17,7 +16,7 @@ def upload_questions(request):
 
     # passing the unvalidated dataframe to the categorise questions function
     # and using the returned categorised Question object lists
-    questions_dict = categorise_questions(questions_dataframe)
+    questions_dict = categorise_and_format_questions(questions_dataframe)
 
     # totalling the different categorisations
     incomplete_count = len(questions_dict['incomplete_questions'])
@@ -30,10 +29,10 @@ def upload_questions(request):
         messages.add_message(request, messages.WARNING, f'{incomplete_count} of {total_questions} questions have incomplete data.')
     
     if len(questions_dict['already_existing']) != 0:
-        messages.add_message(request, messages.WARNING, f'{existing_count} of {total_questions} already exist in the database')
+        messages.add_message(request, messages.INFO, f'{existing_count} of {total_questions} already exist in the database')
     
     if len(questions_dict['valid_questions']) != 0:
-        messages.add_message(request, messages.WARNING, f'{valid_count} of {total_questions} are to be uploaded.')
+        messages.add_message(request, messages.INFO, f'{valid_count} of {total_questions} are to be uploaded.')
     else:
         messages.add_message(request, messages.WARNING, f'There exist no valid questions to be uploaded.')
     # ----------- These messages will be displayed on the upload questions page ------------------
@@ -41,7 +40,7 @@ def upload_questions(request):
     # uploading valid questions if they exist, otherwise doing nothing
     Question.objects.bulk_create(questions_dict['valid_questions']) if valid_count != 0 else False
 
-def categorise_questions(questions_dataframe):
+def categorise_and_format_questions(questions_dataframe):
     # the answers array is overwritten at every iteration
     # and only must exist temporarily
     answers = [None] * 4
@@ -79,7 +78,6 @@ def categorise_questions(questions_dataframe):
                 c=answers[2], 
                 d=answers[3],
                 correct_answer=correct_answer_letter))
-
         elif Question.objects.filter(question=question).count() != 0:
             # checking whether a question already exists in the database
             # if it does, populating and appending the question object to a 
