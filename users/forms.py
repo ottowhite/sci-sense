@@ -36,7 +36,7 @@ class RegisterForm(UserCreationForm):
         password2 = self.data['password2']
 
         if password1 != password2:
-            raise ValidationError(f'{password1} and {password2} don\'t match')
+            raise ValidationError(f'Your passwords do not match. ')
         else:
             return password2
     

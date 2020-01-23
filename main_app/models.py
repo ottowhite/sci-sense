@@ -4,7 +4,6 @@ from users import models as users_models
 class Question(models.Model):
     # defining the multiple-choice question table with the django ORM
 
-    # EDGE CASE: RANDOMISE THE ORDER WITH WHICH QUESTIONS ARE DISPLAYED
     question_id             = models.AutoField(primary_key=True)
     specification_point     = models.FloatField()
     question                = models.TextField()
@@ -46,7 +45,9 @@ class Quiz(models.Model):
     no_questions            = models.IntegerField()
 
     def __str__(self):
-        return f"specification_range: {self.specification_range}, no_questions: {self.no_questions}"
+        return f"\
+            specification_range: {self.specification_range}, \
+            no_questions: {self.no_questions}"
 
 class QuizResult(models.Model):
 
@@ -57,7 +58,10 @@ class QuizResult(models.Model):
     completed_on        = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"specification_range: {self.quiz.specification_range}, no_questions: {self.quiz.no_questions}, correct: {self.percentage_correct}"
+        return f"\
+            specification_range: {self.quiz.specification_range}, \
+            no_questions: {self.quiz.no_questions}, \
+            correct: {self.percentage_correct}"
 
 class Class(models.Model):
 
